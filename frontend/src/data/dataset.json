@@ -1,0 +1,3967 @@
+[
+  {
+    "id": "C-103",
+    "title": "Recurring Charge Discrepancy with Canceled Merchant",
+    "category": "Subscription Cancellation Conflict",
+    "amount": 149.99,
+    "currency": "USD",
+    "customer": {
+      "name": "Alex Mercer",
+      "id": "CUST-8821",
+      "kyc_verified": true,
+      "tenure_months": 36,
+      "trust_score": 92,
+      "location": "US"
+    },
+    "transaction": {
+      "merchant": "CloudStream Pro",
+      "location": "US",
+      "type": "Recurring",
+      "channel": "Online"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Cancellation confirmation acknowledged",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 25,
+    "expected_decision": "RESOLVE",
+    "expected_reasoning": "Customer provided valid cancellation proof and merchant confirmed cancellation previously.",
+    "policy_tags": [
+      "recurring_subscription",
+      "customer_favored"
+    ]
+  },
+  {
+    "id": "C-182",
+    "title": "High-Value Cross-Border Dispute with Missing Merchant Evidence",
+    "category": "Cross-Border Merchant Overcharge",
+    "amount": 2500.0,
+    "currency": "USD",
+    "customer": {
+      "name": "Rajesh Kumar",
+      "id": "CUST-3904",
+      "kyc_verified": true,
+      "tenure_months": 18,
+      "trust_score": 85,
+      "location": "India"
+    },
+    "transaction": {
+      "merchant": "Apex Luxury Goods",
+      "location": "India",
+      "type": "E-Commerce",
+      "channel": "Card Not Present"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "None provided within SLA",
+      "merchant_evidence_present": false
+    },
+    "risk_score": 82,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "High-value dispute ($2,500) with High Risk score (82) and missing merchant evidence mandates human compliance escalation under Section 4.2 Reg Ops policy.",
+    "policy_tags": [
+      "high_value",
+      "high_risk",
+      "missing_evidence",
+      "mandatory_escalation"
+    ]
+  },
+  {
+    "id": "C-193",
+    "title": "Standard Low-Risk Local Merchant Duplicate Charge",
+    "category": "Card Fraud Dispute",
+    "amount": 42.5,
+    "currency": "USD",
+    "customer": {
+      "name": "Elena Rostova",
+      "id": "CUST-1049",
+      "kyc_verified": true,
+      "tenure_months": 48,
+      "trust_score": 96,
+      "location": "UK"
+    },
+    "transaction": {
+      "merchant": "Metro Transit",
+      "location": "UK",
+      "type": "Contactless POS",
+      "channel": "Card Present"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Duplicate trace verified in batch logs",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 12,
+    "expected_decision": "RESOLVE",
+    "expected_reasoning": "Clear duplicate contactless charge under micro-dispute threshold with merchant verification.",
+    "policy_tags": [
+      "low_risk",
+      "duplicate_charge",
+      "auto_resolution"
+    ]
+  },
+  {
+    "id": "C-221",
+    "title": "Unverified Identity Attempt on First-Time Foreign ATM Withdrawal",
+    "category": "ATM Withdrawal Discrepancy",
+    "amount": 900.0,
+    "currency": "USD",
+    "customer": {
+      "name": "Marcus Vance",
+      "id": "CUST-9912",
+      "kyc_verified": false,
+      "tenure_months": 1,
+      "trust_score": 30,
+      "location": "Unknown"
+    },
+    "transaction": {
+      "merchant": "Global ATM Express",
+      "location": "Panama",
+      "type": "ATM",
+      "channel": "PIN Entry"
+    },
+    "evidence": {
+      "customer_receipt": false,
+      "merchant_response": "PIN successfully verified at terminal",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 94,
+    "expected_decision": "REJECT",
+    "expected_reasoning": "Customer failed KYC verification and ATM transaction completed with valid chip+PIN hardware validation.",
+    "policy_tags": [
+      "kyc_failed",
+      "hardware_pin_verified",
+      "high_risk"
+    ]
+  },
+  {
+    "id": "C-281",
+    "title": "Suspected Credential Stuffing with Velocity Spikes",
+    "category": "Account Takeover Suspicion",
+    "amount": 1850.0,
+    "currency": "USD",
+    "customer": {
+      "name": "Sophia Lin",
+      "id": "CUST-5519",
+      "kyc_verified": true,
+      "tenure_months": 14,
+      "trust_score": 70,
+      "location": "Singapore"
+    },
+    "transaction": {
+      "merchant": "CryptoGate Transfer",
+      "location": "Estonia",
+      "type": "Wire",
+      "channel": "API"
+    },
+    "evidence": {
+      "customer_receipt": false,
+      "merchant_response": "Account login occurred from new IP 4 minutes prior",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 91,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Account takeover indicators present with high transaction amount and cross-border destination.",
+    "policy_tags": [
+      "ato_risk",
+      "crypto_ramp",
+      "mandatory_escalation"
+    ]
+  },
+  {
+    "id": "C-001",
+    "title": "Account Takeover Suspicion - $17.79 at Amazon Prime",
+    "category": "Account Takeover Suspicion",
+    "amount": 17.79,
+    "currency": "USD",
+    "customer": {
+      "name": "Maria Patel",
+      "id": "CUST-4811",
+      "kyc_verified": true,
+      "tenure_months": 33,
+      "trust_score": 97,
+      "location": "Canada"
+    },
+    "transaction": {
+      "merchant": "Amazon Prime",
+      "location": "Ireland",
+      "type": "E-Commerce",
+      "channel": "Web Portal"
+    },
+    "evidence": {
+      "customer_receipt": false,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 79,
+    "expected_decision": "REJECT",
+    "expected_reasoning": "Merchant provided clear rebuttal evidence while customer provided no substantiation.",
+    "policy_tags": [
+      "account_takeover_suspicion",
+      "risk_high"
+    ]
+  },
+  {
+    "id": "C-002",
+    "title": "Unauthorized Wire Transfer - $196.84 at Steam Games",
+    "category": "Unauthorized Wire Transfer",
+    "amount": 196.84,
+    "currency": "USD",
+    "customer": {
+      "name": "Maria Sharma",
+      "id": "CUST-7224",
+      "kyc_verified": true,
+      "tenure_months": 7,
+      "trust_score": 61,
+      "location": "UK"
+    },
+    "transaction": {
+      "merchant": "Steam Games",
+      "location": "Ireland",
+      "type": "Wire",
+      "channel": "Card Present"
+    },
+    "evidence": {
+      "customer_receipt": false,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 45,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "policy_tags": [
+      "unauthorized_wire_transfer",
+      "risk_med"
+    ]
+  },
+  {
+    "id": "C-003",
+    "title": "Account Takeover Suspicion - $1,882.52 at Amazon Prime",
+    "category": "Account Takeover Suspicion",
+    "amount": 1882.52,
+    "currency": "USD",
+    "customer": {
+      "name": "Vikram Patel",
+      "id": "CUST-5741",
+      "kyc_verified": true,
+      "tenure_months": 6,
+      "trust_score": 79,
+      "location": "India"
+    },
+    "transaction": {
+      "merchant": "Uber Trip",
+      "location": "Germany",
+      "type": "Wire",
+      "channel": "Web Portal"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 56,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "policy_tags": [
+      "account_takeover_suspicion",
+      "risk_med"
+    ]
+  },
+  {
+    "id": "C-004",
+    "title": "Account Takeover Suspicion - $68.39 at BestBuy",
+    "category": "Account Takeover Suspicion",
+    "amount": 68.39,
+    "currency": "USD",
+    "customer": {
+      "name": "Chen Kim",
+      "id": "CUST-4598",
+      "kyc_verified": true,
+      "tenure_months": 44,
+      "trust_score": 50,
+      "location": "UK"
+    },
+    "transaction": {
+      "merchant": "Amazon Prime",
+      "location": "India",
+      "type": "POS",
+      "channel": "Mobile App"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "None provided",
+      "merchant_evidence_present": false
+    },
+    "risk_score": 78,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "High risk dispute without merchant rebuttal requires investigator escalation.",
+    "policy_tags": [
+      "account_takeover_suspicion",
+      "risk_high"
+    ]
+  },
+  {
+    "id": "C-005",
+    "title": "ATM Withdrawal Discrepancy - $1,913.42 at Deliveroo",
+    "category": "ATM Withdrawal Discrepancy",
+    "amount": 1913.42,
+    "currency": "USD",
+    "customer": {
+      "name": "Chen Garcia",
+      "id": "CUST-5040",
+      "kyc_verified": true,
+      "tenure_months": 48,
+      "trust_score": 71,
+      "location": "Canada"
+    },
+    "transaction": {
+      "merchant": "Walmart",
+      "location": "UK",
+      "type": "Recurring",
+      "channel": "Web Portal"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 60,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "policy_tags": [
+      "atm_withdrawal_discrepancy",
+      "risk_med"
+    ]
+  },
+  {
+    "id": "C-006",
+    "title": "Subscription Cancellation Conflict - $25.35 at Binance",
+    "category": "Subscription Cancellation Conflict",
+    "amount": 25.35,
+    "currency": "USD",
+    "customer": {
+      "name": "Maria Khan",
+      "id": "CUST-7252",
+      "kyc_verified": true,
+      "tenure_months": 39,
+      "trust_score": 49,
+      "location": "Germany"
+    },
+    "transaction": {
+      "merchant": "Walmart",
+      "location": "UK",
+      "type": "POS",
+      "channel": "Card Present"
+    },
+    "evidence": {
+      "customer_receipt": false,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 90,
+    "expected_decision": "REJECT",
+    "expected_reasoning": "Merchant provided clear rebuttal evidence while customer provided no substantiation.",
+    "policy_tags": [
+      "subscription_cancellation_conflict",
+      "risk_high"
+    ]
+  },
+  {
+    "id": "C-007",
+    "title": "Account Takeover Suspicion - $1,652.13 at Apple Store",
+    "category": "Account Takeover Suspicion",
+    "amount": 1652.13,
+    "currency": "USD",
+    "customer": {
+      "name": "Liam Garcia",
+      "id": "CUST-9317",
+      "kyc_verified": true,
+      "tenure_months": 59,
+      "trust_score": 69,
+      "location": "US"
+    },
+    "transaction": {
+      "merchant": "Apple Store",
+      "location": "Panama",
+      "type": "E-Commerce",
+      "channel": "Card Not Present"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 10,
+    "expected_decision": "RESOLVE",
+    "expected_reasoning": "Customer claim substantiated with evidence within auto-settlement limits.",
+    "policy_tags": [
+      "account_takeover_suspicion",
+      "risk_low"
+    ]
+  },
+  {
+    "id": "C-008",
+    "title": "Subscription Cancellation Conflict - $63.38 at Apple Store",
+    "category": "Subscription Cancellation Conflict",
+    "amount": 63.38,
+    "currency": "USD",
+    "customer": {
+      "name": "Fatima Smith",
+      "id": "CUST-4946",
+      "kyc_verified": true,
+      "tenure_months": 57,
+      "trust_score": 71,
+      "location": "Canada"
+    },
+    "transaction": {
+      "merchant": "Uber Trip",
+      "location": "US",
+      "type": "Recurring",
+      "channel": "Card Present"
+    },
+    "evidence": {
+      "customer_receipt": false,
+      "merchant_response": "None provided",
+      "merchant_evidence_present": false
+    },
+    "risk_score": 12,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "policy_tags": [
+      "subscription_cancellation_conflict",
+      "risk_low"
+    ]
+  },
+  {
+    "id": "C-009",
+    "title": "Cross-Border Merchant Overcharge - $1,212.45 at Delta Airlines",
+    "category": "Cross-Border Merchant Overcharge",
+    "amount": 1212.45,
+    "currency": "USD",
+    "customer": {
+      "name": "Chloe Muller",
+      "id": "CUST-7537",
+      "kyc_verified": true,
+      "tenure_months": 43,
+      "trust_score": 78,
+      "location": "Singapore"
+    },
+    "transaction": {
+      "merchant": "Steam Games",
+      "location": "Germany",
+      "type": "Recurring",
+      "channel": "Card Present"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 64,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "policy_tags": [
+      "cross-border_merchant_overcharge",
+      "risk_med"
+    ]
+  },
+  {
+    "id": "C-010",
+    "title": "Unauthorized Wire Transfer - $222.00 at Steam Games",
+    "category": "Unauthorized Wire Transfer",
+    "amount": 222.0,
+    "currency": "USD",
+    "customer": {
+      "name": "Maria Kim",
+      "id": "CUST-4899",
+      "kyc_verified": false,
+      "tenure_months": 18,
+      "trust_score": 50,
+      "location": "Singapore"
+    },
+    "transaction": {
+      "merchant": "Target",
+      "location": "India",
+      "type": "E-Commerce",
+      "channel": "Web Portal"
+    },
+    "evidence": {
+      "customer_receipt": false,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 17,
+    "expected_decision": "REJECT",
+    "expected_reasoning": "Customer identity verification failed (KYC unverified).",
+    "policy_tags": [
+      "unauthorized_wire_transfer",
+      "risk_low"
+    ]
+  },
+  {
+    "id": "C-011",
+    "title": "Unauthorized Wire Transfer - $2,290.79 at Uber Trip",
+    "category": "Unauthorized Wire Transfer",
+    "amount": 2290.79,
+    "currency": "USD",
+    "customer": {
+      "name": "James Khan",
+      "id": "CUST-6559",
+      "kyc_verified": true,
+      "tenure_months": 52,
+      "trust_score": 66,
+      "location": "US"
+    },
+    "transaction": {
+      "merchant": "Delta Airlines",
+      "location": "India",
+      "type": "E-Commerce",
+      "channel": "Web Portal"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "None provided",
+      "merchant_evidence_present": false
+    },
+    "risk_score": 69,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Regulated ops threshold exceeded ($2000+) requiring human review.",
+    "policy_tags": [
+      "unauthorized_wire_transfer",
+      "risk_med"
+    ]
+  },
+  {
+    "id": "C-012",
+    "title": "Unauthorized Wire Transfer - $4,769.80 at Walmart",
+    "category": "Unauthorized Wire Transfer",
+    "amount": 4769.8,
+    "currency": "USD",
+    "customer": {
+      "name": "James Sharma",
+      "id": "CUST-4872",
+      "kyc_verified": true,
+      "tenure_months": 11,
+      "trust_score": 94,
+      "location": "Germany"
+    },
+    "transaction": {
+      "merchant": "Target",
+      "location": "Germany",
+      "type": "E-Commerce",
+      "channel": "Web Portal"
+    },
+    "evidence": {
+      "customer_receipt": false,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 80,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Regulated ops threshold exceeded ($2000+) requiring human review.",
+    "policy_tags": [
+      "unauthorized_wire_transfer",
+      "risk_high"
+    ]
+  },
+  {
+    "id": "C-013",
+    "title": "Card Fraud Dispute - $4,779.55 at Delta Airlines",
+    "category": "Card Fraud Dispute",
+    "amount": 4779.55,
+    "currency": "USD",
+    "customer": {
+      "name": "Chen Patel",
+      "id": "CUST-1958",
+      "kyc_verified": true,
+      "tenure_months": 38,
+      "trust_score": 84,
+      "location": "Singapore"
+    },
+    "transaction": {
+      "merchant": "Walmart",
+      "location": "US",
+      "type": "Wire",
+      "channel": "Card Present"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 81,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Regulated ops threshold exceeded ($2000+) requiring human review.",
+    "policy_tags": [
+      "card_fraud_dispute",
+      "risk_high"
+    ]
+  },
+  {
+    "id": "C-014",
+    "title": "Card Fraud Dispute - $50.89 at BestBuy",
+    "category": "Card Fraud Dispute",
+    "amount": 50.89,
+    "currency": "USD",
+    "customer": {
+      "name": "Maria Taylor",
+      "id": "CUST-5033",
+      "kyc_verified": true,
+      "tenure_months": 38,
+      "trust_score": 44,
+      "location": "Canada"
+    },
+    "transaction": {
+      "merchant": "Amazon Prime",
+      "location": "Ireland",
+      "type": "POS",
+      "channel": "Web Portal"
+    },
+    "evidence": {
+      "customer_receipt": false,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 86,
+    "expected_decision": "REJECT",
+    "expected_reasoning": "Merchant provided clear rebuttal evidence while customer provided no substantiation.",
+    "policy_tags": [
+      "card_fraud_dispute",
+      "risk_high"
+    ]
+  },
+  {
+    "id": "C-015",
+    "title": "Account Takeover Suspicion - $1,901.12 at Steam Games",
+    "category": "Account Takeover Suspicion",
+    "amount": 1901.12,
+    "currency": "USD",
+    "customer": {
+      "name": "Maria Smith",
+      "id": "CUST-8508",
+      "kyc_verified": true,
+      "tenure_months": 40,
+      "trust_score": 65,
+      "location": "Canada"
+    },
+    "transaction": {
+      "merchant": "Uber Trip",
+      "location": "US",
+      "type": "E-Commerce",
+      "channel": "Mobile App"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "None provided",
+      "merchant_evidence_present": false
+    },
+    "risk_score": 26,
+    "expected_decision": "RESOLVE",
+    "expected_reasoning": "Customer claim substantiated with evidence within auto-settlement limits.",
+    "policy_tags": [
+      "account_takeover_suspicion",
+      "risk_low"
+    ]
+  },
+  {
+    "id": "C-016",
+    "title": "Unauthorized Wire Transfer - $449.96 at Walmart",
+    "category": "Unauthorized Wire Transfer",
+    "amount": 449.96,
+    "currency": "USD",
+    "customer": {
+      "name": "James Kim",
+      "id": "CUST-5905",
+      "kyc_verified": true,
+      "tenure_months": 60,
+      "trust_score": 74,
+      "location": "Singapore"
+    },
+    "transaction": {
+      "merchant": "Uber Trip",
+      "location": "India",
+      "type": "Wire",
+      "channel": "Card Present"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 48,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "policy_tags": [
+      "unauthorized_wire_transfer",
+      "risk_med"
+    ]
+  },
+  {
+    "id": "C-017",
+    "title": "Card Fraud Dispute - $922.35 at Amazon Prime",
+    "category": "Card Fraud Dispute",
+    "amount": 922.35,
+    "currency": "USD",
+    "customer": {
+      "name": "Maria Khan",
+      "id": "CUST-5533",
+      "kyc_verified": true,
+      "tenure_months": 3,
+      "trust_score": 80,
+      "location": "US"
+    },
+    "transaction": {
+      "merchant": "Steam Games",
+      "location": "India",
+      "type": "Wire",
+      "channel": "Card Not Present"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "None provided",
+      "merchant_evidence_present": false
+    },
+    "risk_score": 43,
+    "expected_decision": "RESOLVE",
+    "expected_reasoning": "Customer claim substantiated with evidence within auto-settlement limits.",
+    "policy_tags": [
+      "card_fraud_dispute",
+      "risk_med"
+    ]
+  },
+  {
+    "id": "C-018",
+    "title": "Account Takeover Suspicion - $376.38 at Deliveroo",
+    "category": "Account Takeover Suspicion",
+    "amount": 376.38,
+    "currency": "USD",
+    "customer": {
+      "name": "James Muller",
+      "id": "CUST-6974",
+      "kyc_verified": true,
+      "tenure_months": 58,
+      "trust_score": 93,
+      "location": "US"
+    },
+    "transaction": {
+      "merchant": "Steam Games",
+      "location": "India",
+      "type": "E-Commerce",
+      "channel": "Card Present"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "None provided",
+      "merchant_evidence_present": false
+    },
+    "risk_score": 57,
+    "expected_decision": "RESOLVE",
+    "expected_reasoning": "Customer claim substantiated with evidence within auto-settlement limits.",
+    "policy_tags": [
+      "account_takeover_suspicion",
+      "risk_med"
+    ]
+  },
+  {
+    "id": "C-019",
+    "title": "Subscription Cancellation Conflict - $451.34 at BestBuy",
+    "category": "Subscription Cancellation Conflict",
+    "amount": 451.34,
+    "currency": "USD",
+    "customer": {
+      "name": "James Garcia",
+      "id": "CUST-6442",
+      "kyc_verified": true,
+      "tenure_months": 51,
+      "trust_score": 55,
+      "location": "Germany"
+    },
+    "transaction": {
+      "merchant": "Delta Airlines",
+      "location": "UK",
+      "type": "E-Commerce",
+      "channel": "Card Present"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 30,
+    "expected_decision": "RESOLVE",
+    "expected_reasoning": "Customer claim substantiated with evidence within auto-settlement limits.",
+    "policy_tags": [
+      "subscription_cancellation_conflict",
+      "risk_low"
+    ]
+  },
+  {
+    "id": "C-020",
+    "title": "ATM Withdrawal Discrepancy - $4,449.76 at BestBuy",
+    "category": "ATM Withdrawal Discrepancy",
+    "amount": 4449.76,
+    "currency": "USD",
+    "customer": {
+      "name": "Lucas Muller",
+      "id": "CUST-2137",
+      "kyc_verified": true,
+      "tenure_months": 50,
+      "trust_score": 92,
+      "location": "UK"
+    },
+    "transaction": {
+      "merchant": "Steam Games",
+      "location": "Panama",
+      "type": "Recurring",
+      "channel": "Mobile App"
+    },
+    "evidence": {
+      "customer_receipt": false,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 39,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "policy_tags": [
+      "atm_withdrawal_discrepancy",
+      "risk_med"
+    ]
+  },
+  {
+    "id": "C-021",
+    "title": "Card Fraud Dispute - $767.67 at BestBuy",
+    "category": "Card Fraud Dispute",
+    "amount": 767.67,
+    "currency": "USD",
+    "customer": {
+      "name": "Zoe Kim",
+      "id": "CUST-2894",
+      "kyc_verified": false,
+      "tenure_months": 25,
+      "trust_score": 48,
+      "location": "Canada"
+    },
+    "transaction": {
+      "merchant": "Delta Airlines",
+      "location": "UK",
+      "type": "POS",
+      "channel": "Web Portal"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 65,
+    "expected_decision": "REJECT",
+    "expected_reasoning": "Customer identity verification failed (KYC unverified).",
+    "policy_tags": [
+      "card_fraud_dispute",
+      "risk_med"
+    ]
+  },
+  {
+    "id": "C-022",
+    "title": "Card Fraud Dispute - $418.73 at Uber Trip",
+    "category": "Card Fraud Dispute",
+    "amount": 418.73,
+    "currency": "USD",
+    "customer": {
+      "name": "Chloe Muller",
+      "id": "CUST-9308",
+      "kyc_verified": true,
+      "tenure_months": 20,
+      "trust_score": 44,
+      "location": "Singapore"
+    },
+    "transaction": {
+      "merchant": "BestBuy",
+      "location": "UK",
+      "type": "Recurring",
+      "channel": "Mobile App"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 95,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "policy_tags": [
+      "card_fraud_dispute",
+      "risk_high"
+    ]
+  },
+  {
+    "id": "C-023",
+    "title": "Cross-Border Merchant Overcharge - $256.59 at Apple Store",
+    "category": "Cross-Border Merchant Overcharge",
+    "amount": 256.59,
+    "currency": "USD",
+    "customer": {
+      "name": "Fatima Khan",
+      "id": "CUST-6279",
+      "kyc_verified": true,
+      "tenure_months": 30,
+      "trust_score": 59,
+      "location": "Germany"
+    },
+    "transaction": {
+      "merchant": "Target",
+      "location": "Panama",
+      "type": "E-Commerce",
+      "channel": "Web Portal"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "None provided",
+      "merchant_evidence_present": false
+    },
+    "risk_score": 61,
+    "expected_decision": "RESOLVE",
+    "expected_reasoning": "Customer claim substantiated with evidence within auto-settlement limits.",
+    "policy_tags": [
+      "cross-border_merchant_overcharge",
+      "risk_med"
+    ]
+  },
+  {
+    "id": "C-024",
+    "title": "Account Takeover Suspicion - $1,272.66 at Amazon Prime",
+    "category": "Account Takeover Suspicion",
+    "amount": 1272.66,
+    "currency": "USD",
+    "customer": {
+      "name": "James Patel",
+      "id": "CUST-8784",
+      "kyc_verified": false,
+      "tenure_months": 40,
+      "trust_score": 25,
+      "location": "US"
+    },
+    "transaction": {
+      "merchant": "Target",
+      "location": "Germany",
+      "type": "E-Commerce",
+      "channel": "Web Portal"
+    },
+    "evidence": {
+      "customer_receipt": false,
+      "merchant_response": "None provided",
+      "merchant_evidence_present": false
+    },
+    "risk_score": 49,
+    "expected_decision": "REJECT",
+    "expected_reasoning": "Customer identity verification failed (KYC unverified).",
+    "policy_tags": [
+      "account_takeover_suspicion",
+      "risk_med"
+    ]
+  },
+  {
+    "id": "C-025",
+    "title": "ATM Withdrawal Discrepancy - $37.98 at Target",
+    "category": "ATM Withdrawal Discrepancy",
+    "amount": 37.98,
+    "currency": "USD",
+    "customer": {
+      "name": "James Kim",
+      "id": "CUST-5082",
+      "kyc_verified": true,
+      "tenure_months": 59,
+      "trust_score": 54,
+      "location": "US"
+    },
+    "transaction": {
+      "merchant": "Target",
+      "location": "India",
+      "type": "Recurring",
+      "channel": "Mobile App"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 32,
+    "expected_decision": "RESOLVE",
+    "expected_reasoning": "Customer claim substantiated with evidence within auto-settlement limits.",
+    "policy_tags": [
+      "atm_withdrawal_discrepancy",
+      "risk_low"
+    ]
+  },
+  {
+    "id": "C-026",
+    "title": "ATM Withdrawal Discrepancy - $4,491.71 at Apple Store",
+    "category": "ATM Withdrawal Discrepancy",
+    "amount": 4491.71,
+    "currency": "USD",
+    "customer": {
+      "name": "Liam Dubois",
+      "id": "CUST-4919",
+      "kyc_verified": true,
+      "tenure_months": 18,
+      "trust_score": 87,
+      "location": "Germany"
+    },
+    "transaction": {
+      "merchant": "Uber Trip",
+      "location": "Panama",
+      "type": "Wire",
+      "channel": "Card Not Present"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 70,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Regulated ops threshold exceeded ($2000+) requiring human review.",
+    "policy_tags": [
+      "atm_withdrawal_discrepancy",
+      "risk_med"
+    ]
+  },
+  {
+    "id": "C-027",
+    "title": "Subscription Cancellation Conflict - $2,452.49 at Walmart",
+    "category": "Subscription Cancellation Conflict",
+    "amount": 2452.49,
+    "currency": "USD",
+    "customer": {
+      "name": "Priya Khan",
+      "id": "CUST-2020",
+      "kyc_verified": true,
+      "tenure_months": 14,
+      "trust_score": 85,
+      "location": "Germany"
+    },
+    "transaction": {
+      "merchant": "BestBuy",
+      "location": "Ireland",
+      "type": "POS",
+      "channel": "Web Portal"
+    },
+    "evidence": {
+      "customer_receipt": false,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 37,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "policy_tags": [
+      "subscription_cancellation_conflict",
+      "risk_med"
+    ]
+  },
+  {
+    "id": "C-028",
+    "title": "ATM Withdrawal Discrepancy - $4,560.34 at Target",
+    "category": "ATM Withdrawal Discrepancy",
+    "amount": 4560.34,
+    "currency": "USD",
+    "customer": {
+      "name": "Fatima Muller",
+      "id": "CUST-8140",
+      "kyc_verified": true,
+      "tenure_months": 32,
+      "trust_score": 87,
+      "location": "US"
+    },
+    "transaction": {
+      "merchant": "BestBuy",
+      "location": "UK",
+      "type": "Recurring",
+      "channel": "Card Not Present"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 79,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Regulated ops threshold exceeded ($2000+) requiring human review.",
+    "policy_tags": [
+      "atm_withdrawal_discrepancy",
+      "risk_high"
+    ]
+  },
+  {
+    "id": "C-029",
+    "title": "ATM Withdrawal Discrepancy - $74.37 at Apple Store",
+    "category": "ATM Withdrawal Discrepancy",
+    "amount": 74.37,
+    "currency": "USD",
+    "customer": {
+      "name": "Aarav Watanabe",
+      "id": "CUST-4467",
+      "kyc_verified": false,
+      "tenure_months": 30,
+      "trust_score": 37,
+      "location": "UK"
+    },
+    "transaction": {
+      "merchant": "Steam Games",
+      "location": "Germany",
+      "type": "Wire",
+      "channel": "Web Portal"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "None provided",
+      "merchant_evidence_present": false
+    },
+    "risk_score": 27,
+    "expected_decision": "REJECT",
+    "expected_reasoning": "Customer identity verification failed (KYC unverified).",
+    "policy_tags": [
+      "atm_withdrawal_discrepancy",
+      "risk_low"
+    ]
+  },
+  {
+    "id": "C-030",
+    "title": "Subscription Cancellation Conflict - $1,622.79 at Delta Airlines",
+    "category": "Subscription Cancellation Conflict",
+    "amount": 1622.79,
+    "currency": "USD",
+    "customer": {
+      "name": "Fatima Smith",
+      "id": "CUST-3496",
+      "kyc_verified": true,
+      "tenure_months": 16,
+      "trust_score": 44,
+      "location": "India"
+    },
+    "transaction": {
+      "merchant": "Target",
+      "location": "Panama",
+      "type": "POS",
+      "channel": "Card Not Present"
+    },
+    "evidence": {
+      "customer_receipt": false,
+      "merchant_response": "None provided",
+      "merchant_evidence_present": false
+    },
+    "risk_score": 93,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "High risk dispute without merchant rebuttal requires investigator escalation.",
+    "policy_tags": [
+      "subscription_cancellation_conflict",
+      "risk_high"
+    ]
+  },
+  {
+    "id": "C-031",
+    "title": "ATM Withdrawal Discrepancy - $58.96 at Apple Store",
+    "category": "ATM Withdrawal Discrepancy",
+    "amount": 58.96,
+    "currency": "USD",
+    "customer": {
+      "name": "Zoe Khan",
+      "id": "CUST-7498",
+      "kyc_verified": true,
+      "tenure_months": 46,
+      "trust_score": 50,
+      "location": "India"
+    },
+    "transaction": {
+      "merchant": "Uber Trip",
+      "location": "Ireland",
+      "type": "E-Commerce",
+      "channel": "Card Present"
+    },
+    "evidence": {
+      "customer_receipt": false,
+      "merchant_response": "None provided",
+      "merchant_evidence_present": false
+    },
+    "risk_score": 49,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "policy_tags": [
+      "atm_withdrawal_discrepancy",
+      "risk_med"
+    ]
+  },
+  {
+    "id": "C-032",
+    "title": "Account Takeover Suspicion - $64.07 at Steam Games",
+    "category": "Account Takeover Suspicion",
+    "amount": 64.07,
+    "currency": "USD",
+    "customer": {
+      "name": "James Khan",
+      "id": "CUST-9031",
+      "kyc_verified": true,
+      "tenure_months": 7,
+      "trust_score": 67,
+      "location": "Germany"
+    },
+    "transaction": {
+      "merchant": "Steam Games",
+      "location": "Panama",
+      "type": "Recurring",
+      "channel": "Card Not Present"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 94,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "policy_tags": [
+      "account_takeover_suspicion",
+      "risk_high"
+    ]
+  },
+  {
+    "id": "C-033",
+    "title": "ATM Withdrawal Discrepancy - $3,847.74 at Uber Trip",
+    "category": "ATM Withdrawal Discrepancy",
+    "amount": 3847.74,
+    "currency": "USD",
+    "customer": {
+      "name": "Chen Dubois",
+      "id": "CUST-4995",
+      "kyc_verified": true,
+      "tenure_months": 49,
+      "trust_score": 92,
+      "location": "Germany"
+    },
+    "transaction": {
+      "merchant": "Binance",
+      "location": "Ireland",
+      "type": "Recurring",
+      "channel": "Mobile App"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 85,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Regulated ops threshold exceeded ($2000+) requiring human review.",
+    "policy_tags": [
+      "atm_withdrawal_discrepancy",
+      "risk_high"
+    ]
+  },
+  {
+    "id": "C-034",
+    "title": "Card Fraud Dispute - $1,230.84 at Amazon Prime",
+    "category": "Card Fraud Dispute",
+    "amount": 1230.84,
+    "currency": "USD",
+    "customer": {
+      "name": "Liam Patel",
+      "id": "CUST-2402",
+      "kyc_verified": true,
+      "tenure_months": 16,
+      "trust_score": 96,
+      "location": "Singapore"
+    },
+    "transaction": {
+      "merchant": "BestBuy",
+      "location": "Germany",
+      "type": "E-Commerce",
+      "channel": "Web Portal"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "None provided",
+      "merchant_evidence_present": false
+    },
+    "risk_score": 86,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "High risk dispute without merchant rebuttal requires investigator escalation.",
+    "policy_tags": [
+      "card_fraud_dispute",
+      "risk_high"
+    ]
+  },
+  {
+    "id": "C-035",
+    "title": "Account Takeover Suspicion - $2,882.71 at Walmart",
+    "category": "Account Takeover Suspicion",
+    "amount": 2882.71,
+    "currency": "USD",
+    "customer": {
+      "name": "Lucas Khan",
+      "id": "CUST-6419",
+      "kyc_verified": true,
+      "tenure_months": 23,
+      "trust_score": 59,
+      "location": "Singapore"
+    },
+    "transaction": {
+      "merchant": "Target",
+      "location": "UK",
+      "type": "Wire",
+      "channel": "Mobile App"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 94,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Regulated ops threshold exceeded ($2000+) requiring human review.",
+    "policy_tags": [
+      "account_takeover_suspicion",
+      "risk_high"
+    ]
+  },
+  {
+    "id": "C-036",
+    "title": "Unauthorized Wire Transfer - $160.89 at Walmart",
+    "category": "Unauthorized Wire Transfer",
+    "amount": 160.89,
+    "currency": "USD",
+    "customer": {
+      "name": "Zoe Muller",
+      "id": "CUST-2647",
+      "kyc_verified": true,
+      "tenure_months": 54,
+      "trust_score": 87,
+      "location": "India"
+    },
+    "transaction": {
+      "merchant": "Apple Store",
+      "location": "India",
+      "type": "Wire",
+      "channel": "Card Not Present"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 71,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "policy_tags": [
+      "unauthorized_wire_transfer",
+      "risk_high"
+    ]
+  },
+  {
+    "id": "C-037",
+    "title": "Subscription Cancellation Conflict - $911.19 at Amazon Prime",
+    "category": "Subscription Cancellation Conflict",
+    "amount": 911.19,
+    "currency": "USD",
+    "customer": {
+      "name": "Zoe Muller",
+      "id": "CUST-8690",
+      "kyc_verified": true,
+      "tenure_months": 31,
+      "trust_score": 48,
+      "location": "Germany"
+    },
+    "transaction": {
+      "merchant": "Steam Games",
+      "location": "India",
+      "type": "POS",
+      "channel": "Mobile App"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 91,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "policy_tags": [
+      "subscription_cancellation_conflict",
+      "risk_high"
+    ]
+  },
+  {
+    "id": "C-038",
+    "title": "ATM Withdrawal Discrepancy - $17.99 at Delta Airlines",
+    "category": "ATM Withdrawal Discrepancy",
+    "amount": 17.99,
+    "currency": "USD",
+    "customer": {
+      "name": "Maria Kim",
+      "id": "CUST-7818",
+      "kyc_verified": true,
+      "tenure_months": 39,
+      "trust_score": 91,
+      "location": "Canada"
+    },
+    "transaction": {
+      "merchant": "Binance",
+      "location": "India",
+      "type": "Recurring",
+      "channel": "Web Portal"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "None provided",
+      "merchant_evidence_present": false
+    },
+    "risk_score": 82,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "High risk dispute without merchant rebuttal requires investigator escalation.",
+    "policy_tags": [
+      "atm_withdrawal_discrepancy",
+      "risk_high"
+    ]
+  },
+  {
+    "id": "C-039",
+    "title": "ATM Withdrawal Discrepancy - $30.81 at Delta Airlines",
+    "category": "ATM Withdrawal Discrepancy",
+    "amount": 30.81,
+    "currency": "USD",
+    "customer": {
+      "name": "Chen Sharma",
+      "id": "CUST-3573",
+      "kyc_verified": true,
+      "tenure_months": 16,
+      "trust_score": 87,
+      "location": "India"
+    },
+    "transaction": {
+      "merchant": "Walmart",
+      "location": "US",
+      "type": "E-Commerce",
+      "channel": "Card Present"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "None provided",
+      "merchant_evidence_present": false
+    },
+    "risk_score": 22,
+    "expected_decision": "RESOLVE",
+    "expected_reasoning": "Customer claim substantiated with evidence within auto-settlement limits.",
+    "policy_tags": [
+      "atm_withdrawal_discrepancy",
+      "risk_low"
+    ]
+  },
+  {
+    "id": "C-040",
+    "title": "ATM Withdrawal Discrepancy - $936.60 at Binance",
+    "category": "ATM Withdrawal Discrepancy",
+    "amount": 936.6,
+    "currency": "USD",
+    "customer": {
+      "name": "Vikram Patel",
+      "id": "CUST-7965",
+      "kyc_verified": true,
+      "tenure_months": 8,
+      "trust_score": 69,
+      "location": "Canada"
+    },
+    "transaction": {
+      "merchant": "Delta Airlines",
+      "location": "Panama",
+      "type": "E-Commerce",
+      "channel": "Mobile App"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 19,
+    "expected_decision": "RESOLVE",
+    "expected_reasoning": "Customer claim substantiated with evidence within auto-settlement limits.",
+    "policy_tags": [
+      "atm_withdrawal_discrepancy",
+      "risk_low"
+    ]
+  },
+  {
+    "id": "C-041",
+    "title": "Unauthorized Wire Transfer - $961.11 at Walmart",
+    "category": "Unauthorized Wire Transfer",
+    "amount": 961.11,
+    "currency": "USD",
+    "customer": {
+      "name": "Liam Dubois",
+      "id": "CUST-8172",
+      "kyc_verified": true,
+      "tenure_months": 6,
+      "trust_score": 69,
+      "location": "Canada"
+    },
+    "transaction": {
+      "merchant": "Amazon Prime",
+      "location": "Germany",
+      "type": "Wire",
+      "channel": "Mobile App"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 48,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "policy_tags": [
+      "unauthorized_wire_transfer",
+      "risk_med"
+    ]
+  },
+  {
+    "id": "C-042",
+    "title": "Card Fraud Dispute - $16.39 at Deliveroo",
+    "category": "Card Fraud Dispute",
+    "amount": 16.39,
+    "currency": "USD",
+    "customer": {
+      "name": "Priya Kim",
+      "id": "CUST-8245",
+      "kyc_verified": true,
+      "tenure_months": 59,
+      "trust_score": 83,
+      "location": "UK"
+    },
+    "transaction": {
+      "merchant": "Deliveroo",
+      "location": "Ireland",
+      "type": "Recurring",
+      "channel": "Web Portal"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 44,
+    "expected_decision": "RESOLVE",
+    "expected_reasoning": "Micro-dispute low-friction auto-resolution policy.",
+    "policy_tags": [
+      "card_fraud_dispute",
+      "risk_med"
+    ]
+  },
+  {
+    "id": "C-043",
+    "title": "Card Fraud Dispute - $251.51 at Walmart",
+    "category": "Card Fraud Dispute",
+    "amount": 251.51,
+    "currency": "USD",
+    "customer": {
+      "name": "James Dubois",
+      "id": "CUST-2442",
+      "kyc_verified": true,
+      "tenure_months": 21,
+      "trust_score": 84,
+      "location": "UK"
+    },
+    "transaction": {
+      "merchant": "Steam Games",
+      "location": "US",
+      "type": "Recurring",
+      "channel": "Card Present"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 73,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "policy_tags": [
+      "card_fraud_dispute",
+      "risk_high"
+    ]
+  },
+  {
+    "id": "C-044",
+    "title": "Account Takeover Suspicion - $3,555.32 at Apple Store",
+    "category": "Account Takeover Suspicion",
+    "amount": 3555.32,
+    "currency": "USD",
+    "customer": {
+      "name": "Priya Dubois",
+      "id": "CUST-2989",
+      "kyc_verified": true,
+      "tenure_months": 2,
+      "trust_score": 88,
+      "location": "Singapore"
+    },
+    "transaction": {
+      "merchant": "Binance",
+      "location": "India",
+      "type": "E-Commerce",
+      "channel": "Mobile App"
+    },
+    "evidence": {
+      "customer_receipt": false,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 16,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "policy_tags": [
+      "account_takeover_suspicion",
+      "risk_low"
+    ]
+  },
+  {
+    "id": "C-045",
+    "title": "Cross-Border Merchant Overcharge - $10.96 at Apple Store",
+    "category": "Cross-Border Merchant Overcharge",
+    "amount": 10.96,
+    "currency": "USD",
+    "customer": {
+      "name": "Liam Muller",
+      "id": "CUST-7807",
+      "kyc_verified": true,
+      "tenure_months": 54,
+      "trust_score": 47,
+      "location": "Germany"
+    },
+    "transaction": {
+      "merchant": "Target",
+      "location": "India",
+      "type": "Recurring",
+      "channel": "Card Not Present"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 92,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "policy_tags": [
+      "cross-border_merchant_overcharge",
+      "risk_high"
+    ]
+  },
+  {
+    "id": "C-046",
+    "title": "ATM Withdrawal Discrepancy - $23.34 at Apple Store",
+    "category": "ATM Withdrawal Discrepancy",
+    "amount": 23.34,
+    "currency": "USD",
+    "customer": {
+      "name": "James Muller",
+      "id": "CUST-5891",
+      "kyc_verified": true,
+      "tenure_months": 54,
+      "trust_score": 90,
+      "location": "Canada"
+    },
+    "transaction": {
+      "merchant": "Binance",
+      "location": "Panama",
+      "type": "Recurring",
+      "channel": "Card Not Present"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 63,
+    "expected_decision": "RESOLVE",
+    "expected_reasoning": "Micro-dispute low-friction auto-resolution policy.",
+    "policy_tags": [
+      "atm_withdrawal_discrepancy",
+      "risk_med"
+    ]
+  },
+  {
+    "id": "C-047",
+    "title": "ATM Withdrawal Discrepancy - $3,630.29 at BestBuy",
+    "category": "ATM Withdrawal Discrepancy",
+    "amount": 3630.29,
+    "currency": "USD",
+    "customer": {
+      "name": "Fatima Khan",
+      "id": "CUST-1715",
+      "kyc_verified": true,
+      "tenure_months": 21,
+      "trust_score": 95,
+      "location": "Singapore"
+    },
+    "transaction": {
+      "merchant": "Target",
+      "location": "Panama",
+      "type": "Recurring",
+      "channel": "Web Portal"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "None provided",
+      "merchant_evidence_present": false
+    },
+    "risk_score": 34,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Regulated ops threshold exceeded ($2000+) requiring human review.",
+    "policy_tags": [
+      "atm_withdrawal_discrepancy",
+      "risk_low"
+    ]
+  },
+  {
+    "id": "C-048",
+    "title": "Account Takeover Suspicion - $353.85 at Target",
+    "category": "Account Takeover Suspicion",
+    "amount": 353.85,
+    "currency": "USD",
+    "customer": {
+      "name": "Maria Kim",
+      "id": "CUST-8486",
+      "kyc_verified": true,
+      "tenure_months": 1,
+      "trust_score": 77,
+      "location": "Singapore"
+    },
+    "transaction": {
+      "merchant": "Deliveroo",
+      "location": "Germany",
+      "type": "E-Commerce",
+      "channel": "Card Present"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 52,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "policy_tags": [
+      "account_takeover_suspicion",
+      "risk_med"
+    ]
+  },
+  {
+    "id": "C-049",
+    "title": "ATM Withdrawal Discrepancy - $64.71 at Target",
+    "category": "ATM Withdrawal Discrepancy",
+    "amount": 64.71,
+    "currency": "USD",
+    "customer": {
+      "name": "Liam Smith",
+      "id": "CUST-2121",
+      "kyc_verified": true,
+      "tenure_months": 16,
+      "trust_score": 94,
+      "location": "Singapore"
+    },
+    "transaction": {
+      "merchant": "Apple Store",
+      "location": "India",
+      "type": "POS",
+      "channel": "Web Portal"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "None provided",
+      "merchant_evidence_present": false
+    },
+    "risk_score": 78,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "High risk dispute without merchant rebuttal requires investigator escalation.",
+    "policy_tags": [
+      "atm_withdrawal_discrepancy",
+      "risk_high"
+    ]
+  },
+  {
+    "id": "C-050",
+    "title": "Card Fraud Dispute - $650.66 at Steam Games",
+    "category": "Card Fraud Dispute",
+    "amount": 650.66,
+    "currency": "USD",
+    "customer": {
+      "name": "Aarav Garcia",
+      "id": "CUST-5000",
+      "kyc_verified": true,
+      "tenure_months": 34,
+      "trust_score": 42,
+      "location": "Germany"
+    },
+    "transaction": {
+      "merchant": "Binance",
+      "location": "Panama",
+      "type": "E-Commerce",
+      "channel": "Card Not Present"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "None provided",
+      "merchant_evidence_present": false
+    },
+    "risk_score": 51,
+    "expected_decision": "RESOLVE",
+    "expected_reasoning": "Customer claim substantiated with evidence within auto-settlement limits.",
+    "policy_tags": [
+      "card_fraud_dispute",
+      "risk_med"
+    ]
+  },
+  {
+    "id": "C-051",
+    "title": "Unauthorized Wire Transfer - $445.75 at Target",
+    "category": "Unauthorized Wire Transfer",
+    "amount": 445.75,
+    "currency": "USD",
+    "customer": {
+      "name": "Chen Kim",
+      "id": "CUST-3588",
+      "kyc_verified": true,
+      "tenure_months": 5,
+      "trust_score": 80,
+      "location": "Germany"
+    },
+    "transaction": {
+      "merchant": "Steam Games",
+      "location": "Ireland",
+      "type": "Wire",
+      "channel": "Web Portal"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 42,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "policy_tags": [
+      "unauthorized_wire_transfer",
+      "risk_med"
+    ]
+  },
+  {
+    "id": "C-052",
+    "title": "Account Takeover Suspicion - $3,154.08 at Apple Store",
+    "category": "Account Takeover Suspicion",
+    "amount": 3154.08,
+    "currency": "USD",
+    "customer": {
+      "name": "James Khan",
+      "id": "CUST-5497",
+      "kyc_verified": true,
+      "tenure_months": 1,
+      "trust_score": 64,
+      "location": "Canada"
+    },
+    "transaction": {
+      "merchant": "Amazon Prime",
+      "location": "Ireland",
+      "type": "Recurring",
+      "channel": "Mobile App"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "None provided",
+      "merchant_evidence_present": false
+    },
+    "risk_score": 83,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Regulated ops threshold exceeded ($2000+) requiring human review.",
+    "policy_tags": [
+      "account_takeover_suspicion",
+      "risk_high"
+    ]
+  },
+  {
+    "id": "C-053",
+    "title": "Unauthorized Wire Transfer - $227.97 at Target",
+    "category": "Unauthorized Wire Transfer",
+    "amount": 227.97,
+    "currency": "USD",
+    "customer": {
+      "name": "James Taylor",
+      "id": "CUST-6977",
+      "kyc_verified": true,
+      "tenure_months": 47,
+      "trust_score": 97,
+      "location": "India"
+    },
+    "transaction": {
+      "merchant": "Uber Trip",
+      "location": "UK",
+      "type": "Wire",
+      "channel": "Web Portal"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "None provided",
+      "merchant_evidence_present": false
+    },
+    "risk_score": 90,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "High risk dispute without merchant rebuttal requires investigator escalation.",
+    "policy_tags": [
+      "unauthorized_wire_transfer",
+      "risk_high"
+    ]
+  },
+  {
+    "id": "C-054",
+    "title": "Unauthorized Wire Transfer - $1,813.81 at Steam Games",
+    "category": "Unauthorized Wire Transfer",
+    "amount": 1813.81,
+    "currency": "USD",
+    "customer": {
+      "name": "Maria Dubois",
+      "id": "CUST-2233",
+      "kyc_verified": true,
+      "tenure_months": 10,
+      "trust_score": 56,
+      "location": "India"
+    },
+    "transaction": {
+      "merchant": "BestBuy",
+      "location": "Ireland",
+      "type": "Wire",
+      "channel": "Card Present"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "None provided",
+      "merchant_evidence_present": false
+    },
+    "risk_score": 71,
+    "expected_decision": "RESOLVE",
+    "expected_reasoning": "Customer claim substantiated with evidence within auto-settlement limits.",
+    "policy_tags": [
+      "unauthorized_wire_transfer",
+      "risk_high"
+    ]
+  },
+  {
+    "id": "C-055",
+    "title": "ATM Withdrawal Discrepancy - $1,181.72 at Delta Airlines",
+    "category": "ATM Withdrawal Discrepancy",
+    "amount": 1181.72,
+    "currency": "USD",
+    "customer": {
+      "name": "Priya Smith",
+      "id": "CUST-6374",
+      "kyc_verified": true,
+      "tenure_months": 59,
+      "trust_score": 92,
+      "location": "Canada"
+    },
+    "transaction": {
+      "merchant": "Delta Airlines",
+      "location": "Panama",
+      "type": "POS",
+      "channel": "Web Portal"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "None provided",
+      "merchant_evidence_present": false
+    },
+    "risk_score": 91,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "High risk dispute without merchant rebuttal requires investigator escalation.",
+    "policy_tags": [
+      "atm_withdrawal_discrepancy",
+      "risk_high"
+    ]
+  },
+  {
+    "id": "C-056",
+    "title": "Account Takeover Suspicion - $709.53 at BestBuy",
+    "category": "Account Takeover Suspicion",
+    "amount": 709.53,
+    "currency": "USD",
+    "customer": {
+      "name": "Priya Watanabe",
+      "id": "CUST-9850",
+      "kyc_verified": true,
+      "tenure_months": 27,
+      "trust_score": 47,
+      "location": "Canada"
+    },
+    "transaction": {
+      "merchant": "Deliveroo",
+      "location": "Germany",
+      "type": "POS",
+      "channel": "Web Portal"
+    },
+    "evidence": {
+      "customer_receipt": false,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 22,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "policy_tags": [
+      "account_takeover_suspicion",
+      "risk_low"
+    ]
+  },
+  {
+    "id": "C-057",
+    "title": "Cross-Border Merchant Overcharge - $3,111.59 at Walmart",
+    "category": "Cross-Border Merchant Overcharge",
+    "amount": 3111.59,
+    "currency": "USD",
+    "customer": {
+      "name": "Vikram Watanabe",
+      "id": "CUST-1992",
+      "kyc_verified": true,
+      "tenure_months": 26,
+      "trust_score": 55,
+      "location": "UK"
+    },
+    "transaction": {
+      "merchant": "Delta Airlines",
+      "location": "US",
+      "type": "Recurring",
+      "channel": "Card Present"
+    },
+    "evidence": {
+      "customer_receipt": false,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 56,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "policy_tags": [
+      "cross-border_merchant_overcharge",
+      "risk_med"
+    ]
+  },
+  {
+    "id": "C-058",
+    "title": "Account Takeover Suspicion - $1,955.67 at Walmart",
+    "category": "Account Takeover Suspicion",
+    "amount": 1955.67,
+    "currency": "USD",
+    "customer": {
+      "name": "Fatima Taylor",
+      "id": "CUST-4538",
+      "kyc_verified": true,
+      "tenure_months": 53,
+      "trust_score": 48,
+      "location": "India"
+    },
+    "transaction": {
+      "merchant": "Steam Games",
+      "location": "India",
+      "type": "POS",
+      "channel": "Mobile App"
+    },
+    "evidence": {
+      "customer_receipt": false,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 82,
+    "expected_decision": "REJECT",
+    "expected_reasoning": "Merchant provided clear rebuttal evidence while customer provided no substantiation.",
+    "policy_tags": [
+      "account_takeover_suspicion",
+      "risk_high"
+    ]
+  },
+  {
+    "id": "C-059",
+    "title": "Unauthorized Wire Transfer - $79.13 at Apple Store",
+    "category": "Unauthorized Wire Transfer",
+    "amount": 79.13,
+    "currency": "USD",
+    "customer": {
+      "name": "James Garcia",
+      "id": "CUST-7897",
+      "kyc_verified": true,
+      "tenure_months": 34,
+      "trust_score": 62,
+      "location": "US"
+    },
+    "transaction": {
+      "merchant": "Uber Trip",
+      "location": "Germany",
+      "type": "Recurring",
+      "channel": "Mobile App"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "None provided",
+      "merchant_evidence_present": false
+    },
+    "risk_score": 40,
+    "expected_decision": "RESOLVE",
+    "expected_reasoning": "Customer claim substantiated with evidence within auto-settlement limits.",
+    "policy_tags": [
+      "unauthorized_wire_transfer",
+      "risk_med"
+    ]
+  },
+  {
+    "id": "C-060",
+    "title": "Cross-Border Merchant Overcharge - $832.10 at BestBuy",
+    "category": "Cross-Border Merchant Overcharge",
+    "amount": 832.1,
+    "currency": "USD",
+    "customer": {
+      "name": "Vikram Sharma",
+      "id": "CUST-9032",
+      "kyc_verified": true,
+      "tenure_months": 46,
+      "trust_score": 41,
+      "location": "Germany"
+    },
+    "transaction": {
+      "merchant": "Uber Trip",
+      "location": "US",
+      "type": "Wire",
+      "channel": "Card Not Present"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 17,
+    "expected_decision": "RESOLVE",
+    "expected_reasoning": "Customer claim substantiated with evidence within auto-settlement limits.",
+    "policy_tags": [
+      "cross-border_merchant_overcharge",
+      "risk_low"
+    ]
+  },
+  {
+    "id": "C-061",
+    "title": "Card Fraud Dispute - $4,136.46 at Uber Trip",
+    "category": "Card Fraud Dispute",
+    "amount": 4136.46,
+    "currency": "USD",
+    "customer": {
+      "name": "Chloe Sharma",
+      "id": "CUST-4522",
+      "kyc_verified": true,
+      "tenure_months": 28,
+      "trust_score": 73,
+      "location": "Germany"
+    },
+    "transaction": {
+      "merchant": "Delta Airlines",
+      "location": "Germany",
+      "type": "Wire",
+      "channel": "Web Portal"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 47,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "policy_tags": [
+      "card_fraud_dispute",
+      "risk_med"
+    ]
+  },
+  {
+    "id": "C-062",
+    "title": "ATM Withdrawal Discrepancy - $1,139.72 at Uber Trip",
+    "category": "ATM Withdrawal Discrepancy",
+    "amount": 1139.72,
+    "currency": "USD",
+    "customer": {
+      "name": "Aarav Sharma",
+      "id": "CUST-7105",
+      "kyc_verified": true,
+      "tenure_months": 52,
+      "trust_score": 83,
+      "location": "India"
+    },
+    "transaction": {
+      "merchant": "Walmart",
+      "location": "US",
+      "type": "Wire",
+      "channel": "Card Present"
+    },
+    "evidence": {
+      "customer_receipt": false,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 70,
+    "expected_decision": "REJECT",
+    "expected_reasoning": "Merchant provided clear rebuttal evidence while customer provided no substantiation.",
+    "policy_tags": [
+      "atm_withdrawal_discrepancy",
+      "risk_med"
+    ]
+  },
+  {
+    "id": "C-063",
+    "title": "ATM Withdrawal Discrepancy - $34.75 at Delta Airlines",
+    "category": "ATM Withdrawal Discrepancy",
+    "amount": 34.75,
+    "currency": "USD",
+    "customer": {
+      "name": "Dev Dubois",
+      "id": "CUST-4674",
+      "kyc_verified": true,
+      "tenure_months": 55,
+      "trust_score": 78,
+      "location": "US"
+    },
+    "transaction": {
+      "merchant": "Steam Games",
+      "location": "Ireland",
+      "type": "Wire",
+      "channel": "Card Present"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 49,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "policy_tags": [
+      "atm_withdrawal_discrepancy",
+      "risk_med"
+    ]
+  },
+  {
+    "id": "C-064",
+    "title": "Subscription Cancellation Conflict - $50.19 at Apple Store",
+    "category": "Subscription Cancellation Conflict",
+    "amount": 50.19,
+    "currency": "USD",
+    "customer": {
+      "name": "Lucas Watanabe",
+      "id": "CUST-1100",
+      "kyc_verified": true,
+      "tenure_months": 12,
+      "trust_score": 82,
+      "location": "India"
+    },
+    "transaction": {
+      "merchant": "Binance",
+      "location": "Panama",
+      "type": "Recurring",
+      "channel": "Card Present"
+    },
+    "evidence": {
+      "customer_receipt": false,
+      "merchant_response": "None provided",
+      "merchant_evidence_present": false
+    },
+    "risk_score": 44,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "policy_tags": [
+      "subscription_cancellation_conflict",
+      "risk_med"
+    ]
+  },
+  {
+    "id": "C-065",
+    "title": "Unauthorized Wire Transfer - $3,591.45 at Binance",
+    "category": "Unauthorized Wire Transfer",
+    "amount": 3591.45,
+    "currency": "USD",
+    "customer": {
+      "name": "Zoe Sharma",
+      "id": "CUST-1861",
+      "kyc_verified": true,
+      "tenure_months": 10,
+      "trust_score": 61,
+      "location": "India"
+    },
+    "transaction": {
+      "merchant": "Binance",
+      "location": "US",
+      "type": "POS",
+      "channel": "Mobile App"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 30,
+    "expected_decision": "RESOLVE",
+    "expected_reasoning": "Customer claim substantiated with evidence within auto-settlement limits.",
+    "policy_tags": [
+      "unauthorized_wire_transfer",
+      "risk_low"
+    ]
+  },
+  {
+    "id": "C-066",
+    "title": "ATM Withdrawal Discrepancy - $56.34 at Walmart",
+    "category": "ATM Withdrawal Discrepancy",
+    "amount": 56.34,
+    "currency": "USD",
+    "customer": {
+      "name": "Vikram Muller",
+      "id": "CUST-1744",
+      "kyc_verified": true,
+      "tenure_months": 15,
+      "trust_score": 47,
+      "location": "Germany"
+    },
+    "transaction": {
+      "merchant": "Binance",
+      "location": "US",
+      "type": "POS",
+      "channel": "Card Not Present"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 46,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "policy_tags": [
+      "atm_withdrawal_discrepancy",
+      "risk_med"
+    ]
+  },
+  {
+    "id": "C-067",
+    "title": "Subscription Cancellation Conflict - $76.17 at Delta Airlines",
+    "category": "Subscription Cancellation Conflict",
+    "amount": 76.17,
+    "currency": "USD",
+    "customer": {
+      "name": "Liam Kim",
+      "id": "CUST-6802",
+      "kyc_verified": false,
+      "tenure_months": 5,
+      "trust_score": 37,
+      "location": "Germany"
+    },
+    "transaction": {
+      "merchant": "Amazon Prime",
+      "location": "Germany",
+      "type": "POS",
+      "channel": "Web Portal"
+    },
+    "evidence": {
+      "customer_receipt": false,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 32,
+    "expected_decision": "REJECT",
+    "expected_reasoning": "Customer identity verification failed (KYC unverified).",
+    "policy_tags": [
+      "subscription_cancellation_conflict",
+      "risk_low"
+    ]
+  },
+  {
+    "id": "C-068",
+    "title": "Card Fraud Dispute - $4,128.50 at Binance",
+    "category": "Card Fraud Dispute",
+    "amount": 4128.5,
+    "currency": "USD",
+    "customer": {
+      "name": "Priya Watanabe",
+      "id": "CUST-2443",
+      "kyc_verified": true,
+      "tenure_months": 28,
+      "trust_score": 65,
+      "location": "US"
+    },
+    "transaction": {
+      "merchant": "Delta Airlines",
+      "location": "Germany",
+      "type": "Recurring",
+      "channel": "Card Present"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "None provided",
+      "merchant_evidence_present": false
+    },
+    "risk_score": 12,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Regulated ops threshold exceeded ($2000+) requiring human review.",
+    "policy_tags": [
+      "card_fraud_dispute",
+      "risk_low"
+    ]
+  },
+  {
+    "id": "C-069",
+    "title": "ATM Withdrawal Discrepancy - $70.94 at Steam Games",
+    "category": "ATM Withdrawal Discrepancy",
+    "amount": 70.94,
+    "currency": "USD",
+    "customer": {
+      "name": "Lucas Garcia",
+      "id": "CUST-4871",
+      "kyc_verified": true,
+      "tenure_months": 7,
+      "trust_score": 47,
+      "location": "India"
+    },
+    "transaction": {
+      "merchant": "Apple Store",
+      "location": "India",
+      "type": "E-Commerce",
+      "channel": "Card Not Present"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 77,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "policy_tags": [
+      "atm_withdrawal_discrepancy",
+      "risk_high"
+    ]
+  },
+  {
+    "id": "C-070",
+    "title": "Account Takeover Suspicion - $3,391.86 at Steam Games",
+    "category": "Account Takeover Suspicion",
+    "amount": 3391.86,
+    "currency": "USD",
+    "customer": {
+      "name": "Vikram Watanabe",
+      "id": "CUST-3473",
+      "kyc_verified": true,
+      "tenure_months": 29,
+      "trust_score": 96,
+      "location": "US"
+    },
+    "transaction": {
+      "merchant": "Target",
+      "location": "Germany",
+      "type": "Wire",
+      "channel": "Mobile App"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 82,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Regulated ops threshold exceeded ($2000+) requiring human review.",
+    "policy_tags": [
+      "account_takeover_suspicion",
+      "risk_high"
+    ]
+  },
+  {
+    "id": "C-071",
+    "title": "Cross-Border Merchant Overcharge - $13.93 at Uber Trip",
+    "category": "Cross-Border Merchant Overcharge",
+    "amount": 13.93,
+    "currency": "USD",
+    "customer": {
+      "name": "Zoe Taylor",
+      "id": "CUST-9307",
+      "kyc_verified": true,
+      "tenure_months": 25,
+      "trust_score": 58,
+      "location": "Germany"
+    },
+    "transaction": {
+      "merchant": "Binance",
+      "location": "Ireland",
+      "type": "POS",
+      "channel": "Web Portal"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 19,
+    "expected_decision": "RESOLVE",
+    "expected_reasoning": "Customer claim substantiated with evidence within auto-settlement limits.",
+    "policy_tags": [
+      "cross-border_merchant_overcharge",
+      "risk_low"
+    ]
+  },
+  {
+    "id": "C-072",
+    "title": "Cross-Border Merchant Overcharge - $55.63 at Deliveroo",
+    "category": "Cross-Border Merchant Overcharge",
+    "amount": 55.63,
+    "currency": "USD",
+    "customer": {
+      "name": "James Patel",
+      "id": "CUST-8172",
+      "kyc_verified": true,
+      "tenure_months": 29,
+      "trust_score": 91,
+      "location": "Canada"
+    },
+    "transaction": {
+      "merchant": "Walmart",
+      "location": "Ireland",
+      "type": "E-Commerce",
+      "channel": "Mobile App"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "None provided",
+      "merchant_evidence_present": false
+    },
+    "risk_score": 53,
+    "expected_decision": "RESOLVE",
+    "expected_reasoning": "Customer claim substantiated with evidence within auto-settlement limits.",
+    "policy_tags": [
+      "cross-border_merchant_overcharge",
+      "risk_med"
+    ]
+  },
+  {
+    "id": "C-073",
+    "title": "Subscription Cancellation Conflict - $74.26 at BestBuy",
+    "category": "Subscription Cancellation Conflict",
+    "amount": 74.26,
+    "currency": "USD",
+    "customer": {
+      "name": "Chen Muller",
+      "id": "CUST-3463",
+      "kyc_verified": true,
+      "tenure_months": 22,
+      "trust_score": 81,
+      "location": "US"
+    },
+    "transaction": {
+      "merchant": "Binance",
+      "location": "Panama",
+      "type": "E-Commerce",
+      "channel": "Mobile App"
+    },
+    "evidence": {
+      "customer_receipt": false,
+      "merchant_response": "None provided",
+      "merchant_evidence_present": false
+    },
+    "risk_score": 52,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "policy_tags": [
+      "subscription_cancellation_conflict",
+      "risk_med"
+    ]
+  },
+  {
+    "id": "C-074",
+    "title": "Subscription Cancellation Conflict - $77.74 at Walmart",
+    "category": "Subscription Cancellation Conflict",
+    "amount": 77.74,
+    "currency": "USD",
+    "customer": {
+      "name": "Maria Khan",
+      "id": "CUST-9331",
+      "kyc_verified": true,
+      "tenure_months": 24,
+      "trust_score": 64,
+      "location": "US"
+    },
+    "transaction": {
+      "merchant": "Steam Games",
+      "location": "UK",
+      "type": "E-Commerce",
+      "channel": "Card Not Present"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 92,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "policy_tags": [
+      "subscription_cancellation_conflict",
+      "risk_high"
+    ]
+  },
+  {
+    "id": "C-075",
+    "title": "Subscription Cancellation Conflict - $76.34 at Walmart",
+    "category": "Subscription Cancellation Conflict",
+    "amount": 76.34,
+    "currency": "USD",
+    "customer": {
+      "name": "James Watanabe",
+      "id": "CUST-3147",
+      "kyc_verified": true,
+      "tenure_months": 39,
+      "trust_score": 90,
+      "location": "Germany"
+    },
+    "transaction": {
+      "merchant": "Deliveroo",
+      "location": "India",
+      "type": "E-Commerce",
+      "channel": "Card Not Present"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 22,
+    "expected_decision": "RESOLVE",
+    "expected_reasoning": "Customer claim substantiated with evidence within auto-settlement limits.",
+    "policy_tags": [
+      "subscription_cancellation_conflict",
+      "risk_low"
+    ]
+  },
+  {
+    "id": "C-076",
+    "title": "Account Takeover Suspicion - $2,712.59 at Target",
+    "category": "Account Takeover Suspicion",
+    "amount": 2712.59,
+    "currency": "USD",
+    "customer": {
+      "name": "Fatima Watanabe",
+      "id": "CUST-8218",
+      "kyc_verified": true,
+      "tenure_months": 30,
+      "trust_score": 88,
+      "location": "UK"
+    },
+    "transaction": {
+      "merchant": "BestBuy",
+      "location": "Ireland",
+      "type": "Recurring",
+      "channel": "Card Not Present"
+    },
+    "evidence": {
+      "customer_receipt": false,
+      "merchant_response": "None provided",
+      "merchant_evidence_present": false
+    },
+    "risk_score": 67,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Regulated ops threshold exceeded ($2000+) requiring human review.",
+    "policy_tags": [
+      "account_takeover_suspicion",
+      "risk_med"
+    ]
+  },
+  {
+    "id": "C-077",
+    "title": "Unauthorized Wire Transfer - $874.75 at Deliveroo",
+    "category": "Unauthorized Wire Transfer",
+    "amount": 874.75,
+    "currency": "USD",
+    "customer": {
+      "name": "Chen Dubois",
+      "id": "CUST-9410",
+      "kyc_verified": true,
+      "tenure_months": 10,
+      "trust_score": 46,
+      "location": "Germany"
+    },
+    "transaction": {
+      "merchant": "Uber Trip",
+      "location": "India",
+      "type": "Recurring",
+      "channel": "Mobile App"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "None provided",
+      "merchant_evidence_present": false
+    },
+    "risk_score": 76,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "High risk dispute without merchant rebuttal requires investigator escalation.",
+    "policy_tags": [
+      "unauthorized_wire_transfer",
+      "risk_high"
+    ]
+  },
+  {
+    "id": "C-078",
+    "title": "Card Fraud Dispute - $39.04 at Steam Games",
+    "category": "Card Fraud Dispute",
+    "amount": 39.04,
+    "currency": "USD",
+    "customer": {
+      "name": "Dev Garcia",
+      "id": "CUST-1627",
+      "kyc_verified": true,
+      "tenure_months": 19,
+      "trust_score": 41,
+      "location": "Germany"
+    },
+    "transaction": {
+      "merchant": "Deliveroo",
+      "location": "Panama",
+      "type": "Recurring",
+      "channel": "Web Portal"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 50,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "policy_tags": [
+      "card_fraud_dispute",
+      "risk_med"
+    ]
+  },
+  {
+    "id": "C-079",
+    "title": "Cross-Border Merchant Overcharge - $4,504.89 at BestBuy",
+    "category": "Cross-Border Merchant Overcharge",
+    "amount": 4504.89,
+    "currency": "USD",
+    "customer": {
+      "name": "Vikram Taylor",
+      "id": "CUST-8489",
+      "kyc_verified": true,
+      "tenure_months": 5,
+      "trust_score": 58,
+      "location": "US"
+    },
+    "transaction": {
+      "merchant": "Target",
+      "location": "Ireland",
+      "type": "POS",
+      "channel": "Card Not Present"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "None provided",
+      "merchant_evidence_present": false
+    },
+    "risk_score": 40,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Regulated ops threshold exceeded ($2000+) requiring human review.",
+    "policy_tags": [
+      "cross-border_merchant_overcharge",
+      "risk_med"
+    ]
+  },
+  {
+    "id": "C-080",
+    "title": "Account Takeover Suspicion - $2,721.69 at Walmart",
+    "category": "Account Takeover Suspicion",
+    "amount": 2721.69,
+    "currency": "USD",
+    "customer": {
+      "name": "Liam Kim",
+      "id": "CUST-9316",
+      "kyc_verified": true,
+      "tenure_months": 36,
+      "trust_score": 82,
+      "location": "US"
+    },
+    "transaction": {
+      "merchant": "BestBuy",
+      "location": "Germany",
+      "type": "POS",
+      "channel": "Web Portal"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "None provided",
+      "merchant_evidence_present": false
+    },
+    "risk_score": 20,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Regulated ops threshold exceeded ($2000+) requiring human review.",
+    "policy_tags": [
+      "account_takeover_suspicion",
+      "risk_low"
+    ]
+  },
+  {
+    "id": "C-081",
+    "title": "Subscription Cancellation Conflict - $27.76 at Steam Games",
+    "category": "Subscription Cancellation Conflict",
+    "amount": 27.76,
+    "currency": "USD",
+    "customer": {
+      "name": "Vikram Garcia",
+      "id": "CUST-8612",
+      "kyc_verified": true,
+      "tenure_months": 45,
+      "trust_score": 87,
+      "location": "Germany"
+    },
+    "transaction": {
+      "merchant": "Deliveroo",
+      "location": "India",
+      "type": "POS",
+      "channel": "Web Portal"
+    },
+    "evidence": {
+      "customer_receipt": false,
+      "merchant_response": "None provided",
+      "merchant_evidence_present": false
+    },
+    "risk_score": 52,
+    "expected_decision": "RESOLVE",
+    "expected_reasoning": "Micro-dispute low-friction auto-resolution policy.",
+    "policy_tags": [
+      "subscription_cancellation_conflict",
+      "risk_med"
+    ]
+  },
+  {
+    "id": "C-082",
+    "title": "Card Fraud Dispute - $799.01 at Delta Airlines",
+    "category": "Card Fraud Dispute",
+    "amount": 799.01,
+    "currency": "USD",
+    "customer": {
+      "name": "Chen Watanabe",
+      "id": "CUST-1783",
+      "kyc_verified": true,
+      "tenure_months": 56,
+      "trust_score": 92,
+      "location": "Singapore"
+    },
+    "transaction": {
+      "merchant": "Steam Games",
+      "location": "UK",
+      "type": "POS",
+      "channel": "Mobile App"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "None provided",
+      "merchant_evidence_present": false
+    },
+    "risk_score": 79,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "High risk dispute without merchant rebuttal requires investigator escalation.",
+    "policy_tags": [
+      "card_fraud_dispute",
+      "risk_high"
+    ]
+  },
+  {
+    "id": "C-083",
+    "title": "ATM Withdrawal Discrepancy - $392.19 at Uber Trip",
+    "category": "ATM Withdrawal Discrepancy",
+    "amount": 392.19,
+    "currency": "USD",
+    "customer": {
+      "name": "Chloe Khan",
+      "id": "CUST-2293",
+      "kyc_verified": true,
+      "tenure_months": 28,
+      "trust_score": 71,
+      "location": "Canada"
+    },
+    "transaction": {
+      "merchant": "Deliveroo",
+      "location": "Ireland",
+      "type": "Wire",
+      "channel": "Mobile App"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 57,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "policy_tags": [
+      "atm_withdrawal_discrepancy",
+      "risk_med"
+    ]
+  },
+  {
+    "id": "C-084",
+    "title": "Card Fraud Dispute - $3,807.86 at Steam Games",
+    "category": "Card Fraud Dispute",
+    "amount": 3807.86,
+    "currency": "USD",
+    "customer": {
+      "name": "Zoe Khan",
+      "id": "CUST-5498",
+      "kyc_verified": true,
+      "tenure_months": 41,
+      "trust_score": 68,
+      "location": "US"
+    },
+    "transaction": {
+      "merchant": "Uber Trip",
+      "location": "Panama",
+      "type": "Recurring",
+      "channel": "Mobile App"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 54,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "policy_tags": [
+      "card_fraud_dispute",
+      "risk_med"
+    ]
+  },
+  {
+    "id": "C-085",
+    "title": "Cross-Border Merchant Overcharge - $2,428.34 at BestBuy",
+    "category": "Cross-Border Merchant Overcharge",
+    "amount": 2428.34,
+    "currency": "USD",
+    "customer": {
+      "name": "Zoe Smith",
+      "id": "CUST-3513",
+      "kyc_verified": false,
+      "tenure_months": 44,
+      "trust_score": 14,
+      "location": "Germany"
+    },
+    "transaction": {
+      "merchant": "Steam Games",
+      "location": "UK",
+      "type": "Recurring",
+      "channel": "Card Present"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "None provided",
+      "merchant_evidence_present": false
+    },
+    "risk_score": 40,
+    "expected_decision": "REJECT",
+    "expected_reasoning": "Customer identity verification failed (KYC unverified).",
+    "policy_tags": [
+      "cross-border_merchant_overcharge",
+      "risk_med"
+    ]
+  },
+  {
+    "id": "C-086",
+    "title": "Cross-Border Merchant Overcharge - $19.64 at Uber Trip",
+    "category": "Cross-Border Merchant Overcharge",
+    "amount": 19.64,
+    "currency": "USD",
+    "customer": {
+      "name": "Chen Muller",
+      "id": "CUST-8311",
+      "kyc_verified": false,
+      "tenure_months": 14,
+      "trust_score": 21,
+      "location": "Canada"
+    },
+    "transaction": {
+      "merchant": "Apple Store",
+      "location": "Panama",
+      "type": "Recurring",
+      "channel": "Card Not Present"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 73,
+    "expected_decision": "REJECT",
+    "expected_reasoning": "Customer identity verification failed (KYC unverified).",
+    "policy_tags": [
+      "cross-border_merchant_overcharge",
+      "risk_high"
+    ]
+  },
+  {
+    "id": "C-087",
+    "title": "Card Fraud Dispute - $19.50 at Walmart",
+    "category": "Card Fraud Dispute",
+    "amount": 19.5,
+    "currency": "USD",
+    "customer": {
+      "name": "Liam Muller",
+      "id": "CUST-5914",
+      "kyc_verified": true,
+      "tenure_months": 55,
+      "trust_score": 94,
+      "location": "India"
+    },
+    "transaction": {
+      "merchant": "Deliveroo",
+      "location": "UK",
+      "type": "E-Commerce",
+      "channel": "Card Present"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 50,
+    "expected_decision": "RESOLVE",
+    "expected_reasoning": "Micro-dispute low-friction auto-resolution policy.",
+    "policy_tags": [
+      "card_fraud_dispute",
+      "risk_med"
+    ]
+  },
+  {
+    "id": "C-088",
+    "title": "Unauthorized Wire Transfer - $1,240.54 at Apple Store",
+    "category": "Unauthorized Wire Transfer",
+    "amount": 1240.54,
+    "currency": "USD",
+    "customer": {
+      "name": "Aarav Dubois",
+      "id": "CUST-9612",
+      "kyc_verified": true,
+      "tenure_months": 27,
+      "trust_score": 75,
+      "location": "Germany"
+    },
+    "transaction": {
+      "merchant": "Binance",
+      "location": "US",
+      "type": "E-Commerce",
+      "channel": "Mobile App"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "None provided",
+      "merchant_evidence_present": false
+    },
+    "risk_score": 26,
+    "expected_decision": "RESOLVE",
+    "expected_reasoning": "Customer claim substantiated with evidence within auto-settlement limits.",
+    "policy_tags": [
+      "unauthorized_wire_transfer",
+      "risk_low"
+    ]
+  },
+  {
+    "id": "C-089",
+    "title": "Account Takeover Suspicion - $275.65 at Uber Trip",
+    "category": "Account Takeover Suspicion",
+    "amount": 275.65,
+    "currency": "USD",
+    "customer": {
+      "name": "Liam Garcia",
+      "id": "CUST-5982",
+      "kyc_verified": true,
+      "tenure_months": 11,
+      "trust_score": 48,
+      "location": "India"
+    },
+    "transaction": {
+      "merchant": "Steam Games",
+      "location": "Panama",
+      "type": "E-Commerce",
+      "channel": "Mobile App"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 65,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "policy_tags": [
+      "account_takeover_suspicion",
+      "risk_med"
+    ]
+  },
+  {
+    "id": "C-090",
+    "title": "Cross-Border Merchant Overcharge - $875.66 at Deliveroo",
+    "category": "Cross-Border Merchant Overcharge",
+    "amount": 875.66,
+    "currency": "USD",
+    "customer": {
+      "name": "Zoe Taylor",
+      "id": "CUST-3526",
+      "kyc_verified": true,
+      "tenure_months": 11,
+      "trust_score": 59,
+      "location": "Singapore"
+    },
+    "transaction": {
+      "merchant": "Binance",
+      "location": "Panama",
+      "type": "Wire",
+      "channel": "Card Present"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 88,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "policy_tags": [
+      "cross-border_merchant_overcharge",
+      "risk_high"
+    ]
+  },
+  {
+    "id": "C-091",
+    "title": "Card Fraud Dispute - $478.39 at Walmart",
+    "category": "Card Fraud Dispute",
+    "amount": 478.39,
+    "currency": "USD",
+    "customer": {
+      "name": "Chen Muller",
+      "id": "CUST-8912",
+      "kyc_verified": true,
+      "tenure_months": 16,
+      "trust_score": 66,
+      "location": "Singapore"
+    },
+    "transaction": {
+      "merchant": "BestBuy",
+      "location": "UK",
+      "type": "Recurring",
+      "channel": "Card Present"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 89,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "policy_tags": [
+      "card_fraud_dispute",
+      "risk_high"
+    ]
+  },
+  {
+    "id": "C-092",
+    "title": "Account Takeover Suspicion - $264.63 at BestBuy",
+    "category": "Account Takeover Suspicion",
+    "amount": 264.63,
+    "currency": "USD",
+    "customer": {
+      "name": "Dev Watanabe",
+      "id": "CUST-9437",
+      "kyc_verified": true,
+      "tenure_months": 36,
+      "trust_score": 85,
+      "location": "US"
+    },
+    "transaction": {
+      "merchant": "Steam Games",
+      "location": "India",
+      "type": "Recurring",
+      "channel": "Card Present"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 50,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "policy_tags": [
+      "account_takeover_suspicion",
+      "risk_med"
+    ]
+  },
+  {
+    "id": "C-093",
+    "title": "Subscription Cancellation Conflict - $4,836.15 at Steam Games",
+    "category": "Subscription Cancellation Conflict",
+    "amount": 4836.15,
+    "currency": "USD",
+    "customer": {
+      "name": "Fatima Garcia",
+      "id": "CUST-9163",
+      "kyc_verified": true,
+      "tenure_months": 33,
+      "trust_score": 95,
+      "location": "Germany"
+    },
+    "transaction": {
+      "merchant": "Target",
+      "location": "UK",
+      "type": "Recurring",
+      "channel": "Card Present"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 30,
+    "expected_decision": "RESOLVE",
+    "expected_reasoning": "Customer claim substantiated with evidence within auto-settlement limits.",
+    "policy_tags": [
+      "subscription_cancellation_conflict",
+      "risk_low"
+    ]
+  },
+  {
+    "id": "C-094",
+    "title": "Card Fraud Dispute - $1,949.06 at Target",
+    "category": "Card Fraud Dispute",
+    "amount": 1949.06,
+    "currency": "USD",
+    "customer": {
+      "name": "Chen Kim",
+      "id": "CUST-1133",
+      "kyc_verified": false,
+      "tenure_months": 55,
+      "trust_score": 28,
+      "location": "US"
+    },
+    "transaction": {
+      "merchant": "BestBuy",
+      "location": "India",
+      "type": "Wire",
+      "channel": "Mobile App"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 73,
+    "expected_decision": "REJECT",
+    "expected_reasoning": "Customer identity verification failed (KYC unverified).",
+    "policy_tags": [
+      "card_fraud_dispute",
+      "risk_high"
+    ]
+  },
+  {
+    "id": "C-095",
+    "title": "ATM Withdrawal Discrepancy - $1,354.85 at Binance",
+    "category": "ATM Withdrawal Discrepancy",
+    "amount": 1354.85,
+    "currency": "USD",
+    "customer": {
+      "name": "Vikram Taylor",
+      "id": "CUST-2946",
+      "kyc_verified": false,
+      "tenure_months": 9,
+      "trust_score": 42,
+      "location": "US"
+    },
+    "transaction": {
+      "merchant": "BestBuy",
+      "location": "UK",
+      "type": "Wire",
+      "channel": "Mobile App"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "None provided",
+      "merchant_evidence_present": false
+    },
+    "risk_score": 67,
+    "expected_decision": "REJECT",
+    "expected_reasoning": "Customer identity verification failed (KYC unverified).",
+    "policy_tags": [
+      "atm_withdrawal_discrepancy",
+      "risk_med"
+    ]
+  },
+  {
+    "id": "C-096",
+    "title": "Unauthorized Wire Transfer - $293.83 at Walmart",
+    "category": "Unauthorized Wire Transfer",
+    "amount": 293.83,
+    "currency": "USD",
+    "customer": {
+      "name": "Dev Watanabe",
+      "id": "CUST-6218",
+      "kyc_verified": true,
+      "tenure_months": 11,
+      "trust_score": 91,
+      "location": "Germany"
+    },
+    "transaction": {
+      "merchant": "Binance",
+      "location": "Panama",
+      "type": "Wire",
+      "channel": "Mobile App"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "None provided",
+      "merchant_evidence_present": false
+    },
+    "risk_score": 70,
+    "expected_decision": "RESOLVE",
+    "expected_reasoning": "Customer claim substantiated with evidence within auto-settlement limits.",
+    "policy_tags": [
+      "unauthorized_wire_transfer",
+      "risk_med"
+    ]
+  },
+  {
+    "id": "C-097",
+    "title": "Cross-Border Merchant Overcharge - $67.98 at Amazon Prime",
+    "category": "Cross-Border Merchant Overcharge",
+    "amount": 67.98,
+    "currency": "USD",
+    "customer": {
+      "name": "Zoe Dubois",
+      "id": "CUST-5350",
+      "kyc_verified": true,
+      "tenure_months": 42,
+      "trust_score": 83,
+      "location": "Canada"
+    },
+    "transaction": {
+      "merchant": "Binance",
+      "location": "India",
+      "type": "POS",
+      "channel": "Web Portal"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 24,
+    "expected_decision": "RESOLVE",
+    "expected_reasoning": "Customer claim substantiated with evidence within auto-settlement limits.",
+    "policy_tags": [
+      "cross-border_merchant_overcharge",
+      "risk_low"
+    ]
+  },
+  {
+    "id": "C-098",
+    "title": "Unauthorized Wire Transfer - $382.90 at Deliveroo",
+    "category": "Unauthorized Wire Transfer",
+    "amount": 382.9,
+    "currency": "USD",
+    "customer": {
+      "name": "Aarav Patel",
+      "id": "CUST-7723",
+      "kyc_verified": false,
+      "tenure_months": 33,
+      "trust_score": 17,
+      "location": "Canada"
+    },
+    "transaction": {
+      "merchant": "Target",
+      "location": "Panama",
+      "type": "POS",
+      "channel": "Card Not Present"
+    },
+    "evidence": {
+      "customer_receipt": false,
+      "merchant_response": "None provided",
+      "merchant_evidence_present": false
+    },
+    "risk_score": 34,
+    "expected_decision": "REJECT",
+    "expected_reasoning": "Customer identity verification failed (KYC unverified).",
+    "policy_tags": [
+      "unauthorized_wire_transfer",
+      "risk_low"
+    ]
+  },
+  {
+    "id": "C-099",
+    "title": "Cross-Border Merchant Overcharge - $1,492.68 at Apple Store",
+    "category": "Cross-Border Merchant Overcharge",
+    "amount": 1492.68,
+    "currency": "USD",
+    "customer": {
+      "name": "Zoe Dubois",
+      "id": "CUST-4150",
+      "kyc_verified": true,
+      "tenure_months": 16,
+      "trust_score": 69,
+      "location": "UK"
+    },
+    "transaction": {
+      "merchant": "Walmart",
+      "location": "UK",
+      "type": "E-Commerce",
+      "channel": "Mobile App"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "None provided",
+      "merchant_evidence_present": false
+    },
+    "risk_score": 78,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "High risk dispute without merchant rebuttal requires investigator escalation.",
+    "policy_tags": [
+      "cross-border_merchant_overcharge",
+      "risk_high"
+    ]
+  },
+  {
+    "id": "C-100",
+    "title": "Subscription Cancellation Conflict - $1,233.02 at Steam Games",
+    "category": "Subscription Cancellation Conflict",
+    "amount": 1233.02,
+    "currency": "USD",
+    "customer": {
+      "name": "Dev Muller",
+      "id": "CUST-1689",
+      "kyc_verified": true,
+      "tenure_months": 19,
+      "trust_score": 76,
+      "location": "Singapore"
+    },
+    "transaction": {
+      "merchant": "Uber Trip",
+      "location": "UK",
+      "type": "Recurring",
+      "channel": "Mobile App"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 79,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "policy_tags": [
+      "subscription_cancellation_conflict",
+      "risk_high"
+    ]
+  },
+  {
+    "id": "C-101",
+    "title": "Account Takeover Suspicion - $1,307.33 at Walmart",
+    "category": "Account Takeover Suspicion",
+    "amount": 1307.33,
+    "currency": "USD",
+    "customer": {
+      "name": "Fatima Patel",
+      "id": "CUST-1860",
+      "kyc_verified": true,
+      "tenure_months": 7,
+      "trust_score": 79,
+      "location": "Germany"
+    },
+    "transaction": {
+      "merchant": "Steam Games",
+      "location": "Panama",
+      "type": "Recurring",
+      "channel": "Card Present"
+    },
+    "evidence": {
+      "customer_receipt": false,
+      "merchant_response": "None provided",
+      "merchant_evidence_present": false
+    },
+    "risk_score": 85,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "High risk dispute without merchant rebuttal requires investigator escalation.",
+    "policy_tags": [
+      "account_takeover_suspicion",
+      "risk_high"
+    ]
+  },
+  {
+    "id": "C-102",
+    "title": "Account Takeover Suspicion - $4,787.30 at Apple Store",
+    "category": "Account Takeover Suspicion",
+    "amount": 4787.3,
+    "currency": "USD",
+    "customer": {
+      "name": "Lucas Muller",
+      "id": "CUST-1969",
+      "kyc_verified": true,
+      "tenure_months": 59,
+      "trust_score": 96,
+      "location": "US"
+    },
+    "transaction": {
+      "merchant": "Binance",
+      "location": "India",
+      "type": "POS",
+      "channel": "Card Not Present"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "None provided",
+      "merchant_evidence_present": false
+    },
+    "risk_score": 70,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Regulated ops threshold exceeded ($2000+) requiring human review.",
+    "policy_tags": [
+      "account_takeover_suspicion",
+      "risk_med"
+    ]
+  },
+  {
+    "id": "C-104",
+    "title": "ATM Withdrawal Discrepancy - $4,991.52 at Binance",
+    "category": "ATM Withdrawal Discrepancy",
+    "amount": 4991.52,
+    "currency": "USD",
+    "customer": {
+      "name": "Zoe Sharma",
+      "id": "CUST-6489",
+      "kyc_verified": true,
+      "tenure_months": 19,
+      "trust_score": 51,
+      "location": "Germany"
+    },
+    "transaction": {
+      "merchant": "Walmart",
+      "location": "Ireland",
+      "type": "Recurring",
+      "channel": "Card Not Present"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "None provided",
+      "merchant_evidence_present": false
+    },
+    "risk_score": 47,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Regulated ops threshold exceeded ($2000+) requiring human review.",
+    "policy_tags": [
+      "atm_withdrawal_discrepancy",
+      "risk_med"
+    ]
+  },
+  {
+    "id": "C-105",
+    "title": "Cross-Border Merchant Overcharge - $2,487.48 at Apple Store",
+    "category": "Cross-Border Merchant Overcharge",
+    "amount": 2487.48,
+    "currency": "USD",
+    "customer": {
+      "name": "Zoe Patel",
+      "id": "CUST-3875",
+      "kyc_verified": true,
+      "tenure_months": 40,
+      "trust_score": 85,
+      "location": "Singapore"
+    },
+    "transaction": {
+      "merchant": "BestBuy",
+      "location": "Germany",
+      "type": "Wire",
+      "channel": "Card Present"
+    },
+    "evidence": {
+      "customer_receipt": false,
+      "merchant_response": "None provided",
+      "merchant_evidence_present": false
+    },
+    "risk_score": 33,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Regulated ops threshold exceeded ($2000+) requiring human review.",
+    "policy_tags": [
+      "cross-border_merchant_overcharge",
+      "risk_low"
+    ]
+  },
+  {
+    "id": "C-106",
+    "title": "ATM Withdrawal Discrepancy - $157.61 at Steam Games",
+    "category": "ATM Withdrawal Discrepancy",
+    "amount": 157.61,
+    "currency": "USD",
+    "customer": {
+      "name": "Chen Taylor",
+      "id": "CUST-1187",
+      "kyc_verified": false,
+      "tenure_months": 17,
+      "trust_score": 34,
+      "location": "Singapore"
+    },
+    "transaction": {
+      "merchant": "Steam Games",
+      "location": "Panama",
+      "type": "E-Commerce",
+      "channel": "Card Present"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "None provided",
+      "merchant_evidence_present": false
+    },
+    "risk_score": 40,
+    "expected_decision": "REJECT",
+    "expected_reasoning": "Customer identity verification failed (KYC unverified).",
+    "policy_tags": [
+      "atm_withdrawal_discrepancy",
+      "risk_med"
+    ]
+  },
+  {
+    "id": "C-107",
+    "title": "Account Takeover Suspicion - $1,107.72 at Deliveroo",
+    "category": "Account Takeover Suspicion",
+    "amount": 1107.72,
+    "currency": "USD",
+    "customer": {
+      "name": "Priya Garcia",
+      "id": "CUST-8454",
+      "kyc_verified": true,
+      "tenure_months": 48,
+      "trust_score": 80,
+      "location": "Canada"
+    },
+    "transaction": {
+      "merchant": "Steam Games",
+      "location": "Germany",
+      "type": "Recurring",
+      "channel": "Card Not Present"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "None provided",
+      "merchant_evidence_present": false
+    },
+    "risk_score": 47,
+    "expected_decision": "RESOLVE",
+    "expected_reasoning": "Customer claim substantiated with evidence within auto-settlement limits.",
+    "policy_tags": [
+      "account_takeover_suspicion",
+      "risk_med"
+    ]
+  },
+  {
+    "id": "C-108",
+    "title": "Unauthorized Wire Transfer - $1,680.27 at Walmart",
+    "category": "Unauthorized Wire Transfer",
+    "amount": 1680.27,
+    "currency": "USD",
+    "customer": {
+      "name": "Fatima Taylor",
+      "id": "CUST-9792",
+      "kyc_verified": false,
+      "tenure_months": 10,
+      "trust_score": 46,
+      "location": "India"
+    },
+    "transaction": {
+      "merchant": "Steam Games",
+      "location": "Ireland",
+      "type": "Recurring",
+      "channel": "Card Present"
+    },
+    "evidence": {
+      "customer_receipt": false,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 24,
+    "expected_decision": "REJECT",
+    "expected_reasoning": "Customer identity verification failed (KYC unverified).",
+    "policy_tags": [
+      "unauthorized_wire_transfer",
+      "risk_low"
+    ]
+  },
+  {
+    "id": "C-109",
+    "title": "Account Takeover Suspicion - $24.38 at Target",
+    "category": "Account Takeover Suspicion",
+    "amount": 24.38,
+    "currency": "USD",
+    "customer": {
+      "name": "Vikram Muller",
+      "id": "CUST-1356",
+      "kyc_verified": true,
+      "tenure_months": 26,
+      "trust_score": 72,
+      "location": "UK"
+    },
+    "transaction": {
+      "merchant": "Amazon Prime",
+      "location": "Panama",
+      "type": "E-Commerce",
+      "channel": "Card Present"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "None provided",
+      "merchant_evidence_present": false
+    },
+    "risk_score": 63,
+    "expected_decision": "RESOLVE",
+    "expected_reasoning": "Customer claim substantiated with evidence within auto-settlement limits.",
+    "policy_tags": [
+      "account_takeover_suspicion",
+      "risk_med"
+    ]
+  },
+  {
+    "id": "C-110",
+    "title": "Card Fraud Dispute - $39.66 at Deliveroo",
+    "category": "Card Fraud Dispute",
+    "amount": 39.66,
+    "currency": "USD",
+    "customer": {
+      "name": "Vikram Khan",
+      "id": "CUST-7135",
+      "kyc_verified": true,
+      "tenure_months": 58,
+      "trust_score": 70,
+      "location": "Germany"
+    },
+    "transaction": {
+      "merchant": "Target",
+      "location": "Germany",
+      "type": "Recurring",
+      "channel": "Card Present"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "None provided",
+      "merchant_evidence_present": false
+    },
+    "risk_score": 14,
+    "expected_decision": "RESOLVE",
+    "expected_reasoning": "Customer claim substantiated with evidence within auto-settlement limits.",
+    "policy_tags": [
+      "card_fraud_dispute",
+      "risk_low"
+    ]
+  },
+  {
+    "id": "C-111",
+    "title": "Account Takeover Suspicion - $77.49 at Delta Airlines",
+    "category": "Account Takeover Suspicion",
+    "amount": 77.49,
+    "currency": "USD",
+    "customer": {
+      "name": "James Smith",
+      "id": "CUST-5888",
+      "kyc_verified": true,
+      "tenure_months": 30,
+      "trust_score": 74,
+      "location": "Singapore"
+    },
+    "transaction": {
+      "merchant": "Walmart",
+      "location": "Germany",
+      "type": "Recurring",
+      "channel": "Card Not Present"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 60,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "policy_tags": [
+      "account_takeover_suspicion",
+      "risk_med"
+    ]
+  },
+  {
+    "id": "C-112",
+    "title": "Unauthorized Wire Transfer - $42.24 at Amazon Prime",
+    "category": "Unauthorized Wire Transfer",
+    "amount": 42.24,
+    "currency": "USD",
+    "customer": {
+      "name": "Fatima Patel",
+      "id": "CUST-2102",
+      "kyc_verified": false,
+      "tenure_months": 7,
+      "trust_score": 36,
+      "location": "Canada"
+    },
+    "transaction": {
+      "merchant": "Amazon Prime",
+      "location": "Germany",
+      "type": "POS",
+      "channel": "Card Not Present"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 88,
+    "expected_decision": "REJECT",
+    "expected_reasoning": "Customer identity verification failed (KYC unverified).",
+    "policy_tags": [
+      "unauthorized_wire_transfer",
+      "risk_high"
+    ]
+  },
+  {
+    "id": "C-113",
+    "title": "Account Takeover Suspicion - $13.10 at Steam Games",
+    "category": "Account Takeover Suspicion",
+    "amount": 13.1,
+    "currency": "USD",
+    "customer": {
+      "name": "Zoe Taylor",
+      "id": "CUST-6253",
+      "kyc_verified": true,
+      "tenure_months": 16,
+      "trust_score": 58,
+      "location": "UK"
+    },
+    "transaction": {
+      "merchant": "Deliveroo",
+      "location": "Panama",
+      "type": "E-Commerce",
+      "channel": "Web Portal"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 39,
+    "expected_decision": "RESOLVE",
+    "expected_reasoning": "Customer claim substantiated with evidence within auto-settlement limits.",
+    "policy_tags": [
+      "account_takeover_suspicion",
+      "risk_med"
+    ]
+  },
+  {
+    "id": "C-114",
+    "title": "Subscription Cancellation Conflict - $313.82 at BestBuy",
+    "category": "Subscription Cancellation Conflict",
+    "amount": 313.82,
+    "currency": "USD",
+    "customer": {
+      "name": "Liam Watanabe",
+      "id": "CUST-7821",
+      "kyc_verified": true,
+      "tenure_months": 27,
+      "trust_score": 67,
+      "location": "India"
+    },
+    "transaction": {
+      "merchant": "Apple Store",
+      "location": "Germany",
+      "type": "E-Commerce",
+      "channel": "Web Portal"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 81,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "policy_tags": [
+      "subscription_cancellation_conflict",
+      "risk_high"
+    ]
+  },
+  {
+    "id": "C-115",
+    "title": "Unauthorized Wire Transfer - $69.45 at Apple Store",
+    "category": "Unauthorized Wire Transfer",
+    "amount": 69.45,
+    "currency": "USD",
+    "customer": {
+      "name": "Fatima Watanabe",
+      "id": "CUST-2295",
+      "kyc_verified": true,
+      "tenure_months": 60,
+      "trust_score": 66,
+      "location": "Germany"
+    },
+    "transaction": {
+      "merchant": "Steam Games",
+      "location": "US",
+      "type": "E-Commerce",
+      "channel": "Card Present"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "None provided",
+      "merchant_evidence_present": false
+    },
+    "risk_score": 81,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "High risk dispute without merchant rebuttal requires investigator escalation.",
+    "policy_tags": [
+      "unauthorized_wire_transfer",
+      "risk_high"
+    ]
+  },
+  {
+    "id": "C-116",
+    "title": "Subscription Cancellation Conflict - $334.09 at Delta Airlines",
+    "category": "Subscription Cancellation Conflict",
+    "amount": 334.09,
+    "currency": "USD",
+    "customer": {
+      "name": "Fatima Sharma",
+      "id": "CUST-8846",
+      "kyc_verified": true,
+      "tenure_months": 59,
+      "trust_score": 95,
+      "location": "India"
+    },
+    "transaction": {
+      "merchant": "Binance",
+      "location": "Panama",
+      "type": "E-Commerce",
+      "channel": "Web Portal"
+    },
+    "evidence": {
+      "customer_receipt": true,
+      "merchant_response": "Rebuttal documentation attached",
+      "merchant_evidence_present": true
+    },
+    "risk_score": 52,
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "policy_tags": [
+      "subscription_cancellation_conflict",
+      "risk_med"
+    ]
+  }
+]

@@ -28,11 +28,16 @@ class PolicyEvaluationNodeV13(BaseWorkflowNode):
             return state, reasoning, "DECISION_REJECT"
 
         # NAIVE BUGFIX: Intended to speed up trusted resolutions and eliminate false rejections,
-        # but accidentally auto-resolves for ANY customer with trust score >= 80 and a receipt,
-        # executing BEFORE mandatory missing-evidence and high-risk safety checks!
-        if state["trust_score"] >= 80 and state["customer_receipt"]:
+        # fast-tracks customers with trust score >= 85 and a receipt on dispute claims under $3000,
+        # but accidentally executes BEFORE mandatory missing-evidence and high-risk safety checks!
+        if state["trust_score"] >= 85 and state["customer_receipt"] and case.amount <= 3000 and case.category in [
+            "Cross-Border Merchant Overcharge",
+            "Card Fraud Dispute",
+            "Subscription Cancelled But Charged",
+            "Goods Not Received"
+        ]:
             state["decision"] = "RESOLVE"
-            reasoning = f"Policy Rule 3.3 (V13 Naive Fast-Track): Auto-resolved based on customer trust score ({state['trust_score']}/100) and receipt (Bypassed missing evidence & high-risk check!)."
+            reasoning = f"Policy Rule 3.3 (V13 Naive Fast-Track): Auto-resolved based on customer trust score ({state['trust_score']}/100) and receipt for ${case.amount:.2f} (Bypassed missing evidence & high-risk check!)."
             return state, reasoning, "DECISION_RESOLVE"
 
         # Rule 2: Mandatory Safety Checks (Now only reached if trust_score < 80)

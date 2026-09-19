@@ -1,14 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Navbar } from './components/Navbar';
 import { MetricsOverview } from './components/MetricsOverview';
 import { RegressionMatrix } from './components/RegressionMatrix';
 import { TraceVisualizerModal } from './components/TraceVisualizerModal';
 import { PromoteIncidentModal } from './components/PromoteIncidentModal';
 import { GuardrailSandbox, type SandboxRules } from './components/GuardrailSandbox';
-import { computeLocalReplay } from './lib/replayEngine';
+import { fetchReplay, evaluateSandboxRules, promoteCase } from './lib/api';
 import type { ReplayResponse, ComparisonResult, TestCase } from './types';
-import rawDataset from './data/dataset.json';
-import { Sparkles, AlertTriangle, ArrowRight } from 'lucide-react';
+import { Sparkles, AlertTriangle, ArrowRight, RefreshCw, AlertCircle } from 'lucide-react';
 
 export function App() {
   const [baselineVer, setBaselineVer] = useState('V12');
@@ -18,34 +17,34 @@ export function App() {
   const [selectedCase, setSelectedCase] = useState<ComparisonResult | null>(null);
   const [isPromoteModalOpen, setIsPromoteModalOpen] = useState(false);
   const [isReplaying, setIsReplaying] = useState(false);
-  const [activeDataset, setActiveDataset] = useState<TestCase[]>(rawDataset as TestCase[]);
   const [showSandbox, setShowSandbox] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [apiError, setApiError] = useState<string | null>(null);
 
   const showToast = (msg: string) => {
     setToastMessage(msg);
-    setTimeout(() => setToastMessage(null), 3000);
+    setTimeout(() => setToastMessage(null), 3500);
   };
 
-  const loadReplay = (base: string, curr: string, datasetToUse = activeDataset) => {
+  const loadReplay = useCallback(async (base: string, curr: string) => {
     setIsReplaying(true);
+    setApiError(null);
     try {
-      const data = computeLocalReplay(
-        base as 'V12' | 'V13' | 'V14',
-        curr as 'V12' | 'V13' | 'V14',
-        datasetToUse
-      );
+      const data = await fetchReplay(base, curr);
       setReplayData(data);
-    } catch (err) {
-      console.error('Failed to load replay', err);
+    } catch (err: any) {
+      console.error('Failed to load replay from backend API:', err);
+      setApiError(
+        'FastAPI backend unreachable at http://127.0.0.1:8000. Start the server with: uvicorn backend.app:app --reload'
+      );
     } finally {
-      setTimeout(() => setIsReplaying(false), 150);
+      setIsReplaying(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     loadReplay(baselineVer, currentVer);
-  }, [baselineVer, currentVer]);
+  }, [baselineVer, currentVer, loadReplay]);
 
   const handleVersionChange = (base: string, curr: string) => {
     setBaselineVer(base);
@@ -54,50 +53,34 @@ export function App() {
     showToast(`Switched target: ${base} → ${curr}`);
   };
 
-  const handlePromoteCase = (newCase: TestCase) => {
-    const updated = [newCase, ...activeDataset];
-    setActiveDataset(updated);
-    loadReplay(baselineVer, currentVer, updated);
-    showToast(`Case ${newCase.id} added to test suite!`);
+  const handlePromoteCase = async (newCase: TestCase) => {
+    try {
+      await promoteCase(newCase);
+      showToast(`Case ${newCase.id} promoted to regression suite!`);
+      await loadReplay(baselineVer, currentVer);
+    } catch (err: any) {
+      showToast(`Error promoting case: ${err.message}`);
+    }
   };
 
-  const handleApplySandboxRules = (rules: SandboxRules) => {
+  const handleApplySandboxRules = async (rules: SandboxRules) => {
     setIsReplaying(true);
-    setTimeout(() => {
-      const baseResponse = computeLocalReplay('V12', 'V14', activeDataset);
-      if (rules.allowBypassMissingEvidence) {
-        baseResponse.cases.forEach(c => {
-          if (['C-182', 'C-004', 'C-028', 'C-064'].includes(c.case_id)) {
-            c.v_current_decision = 'RESOLVE';
-            c.status = 'REGRESSION';
-            c.is_silent_failure = true;
-            c.divergence_step = 5;
-            c.divergence_node_name = 'Reg Ops Policy Engine';
-            c.divergence_reason = `Custom Sandbox Rule: Auto-resolved for customer trust >= ${rules.trustThreshold} (Bypassed missing evidence rule).`;
-          }
-        });
-        const fixed = baseResponse.cases.filter(c => c.status === 'FIXED').length;
-        const reg = baseResponse.cases.filter(c => c.status === 'REGRESSION').length;
-        const silent = baseResponse.cases.filter(c => c.is_silent_failure).length;
-        const stable = baseResponse.cases.filter(c => c.status === 'STABLE').length;
-        baseResponse.metrics.regression_count = reg;
-        baseResponse.metrics.silent_failure_count = silent;
-        baseResponse.metrics.fixed_count = fixed;
-        baseResponse.metrics.stable_count = stable;
-        baseResponse.metrics.current_accuracy = Math.round(((120 - reg) / 120) * 1000) / 10;
-        baseResponse.metrics.accuracy_delta = Math.round((baseResponse.metrics.current_accuracy - baseResponse.metrics.baseline_accuracy) * 10) / 10;
-      }
-      setReplayData(baseResponse);
+    try {
+      const sandboxResponse = await evaluateSandboxRules(rules);
+      setReplayData(sandboxResponse);
+      showToast('Live sandbox rules evaluated across 120 cases via Python engine.');
+    } catch (err: any) {
+      showToast(`Sandbox evaluation error: ${err.message}`);
+    } finally {
       setIsReplaying(false);
-      showToast('Sandbox rules evaluated across suite.');
-    }, 200);
+    }
   };
 
   return (
     <div className="min-h-screen bg-[#0b0f19] text-slate-100 flex flex-col font-sans">
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 bg-[#161f33] border border-indigo-500/40 px-3.5 py-2 rounded-lg shadow-xl text-xs font-mono text-indigo-300 flex items-center gap-2">
+        <div className="fixed bottom-6 right-6 z-50 bg-[#161f33] border border-indigo-500/40 px-3.5 py-2 rounded-lg shadow-xl text-xs font-mono text-indigo-300 flex items-center gap-2 animate-fade-in">
           <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
           {toastMessage}
         </div>
@@ -125,10 +108,26 @@ export function App() {
             <span>•</span>
             <span className="font-mono text-slate-400">Regulated Ops Suite (120 Cases)</span>
           </div>
-          <div className="text-[11px] font-mono text-slate-400">
-            Core Loop: Reproduce → Replay → Divergence Diff
+          <div className="text-[11px] font-mono text-slate-400 hidden sm:block">
+            Core Loop: Reproduce → Replay → Divergence Diff → Invariant Check
           </div>
         </div>
+
+        {/* API Error / Connection Warning */}
+        {apiError && (
+          <div className="bg-[#1c131d] border border-amber-500/40 rounded-xl p-3.5 flex items-center justify-between gap-3 text-amber-200 text-xs font-mono">
+            <div className="flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 text-amber-400 flex-shrink-0" />
+              <span>{apiError}</span>
+            </div>
+            <button
+              onClick={() => loadReplay(baselineVer, currentVer)}
+              className="px-2.5 py-1 bg-amber-600/30 hover:bg-amber-600/50 border border-amber-500/40 text-amber-100 rounded text-xs transition flex items-center gap-1 cursor-pointer"
+            >
+              <RefreshCw className="w-3 h-3" /> Retry
+            </button>
+          </div>
+        )}
 
         {/* Collapsible Sandbox */}
         {showSandbox && (
@@ -208,7 +207,7 @@ export function App() {
             PatchReplay • Built for <strong className="text-slate-400">Patched (YC S24)</strong> AI Reliability Engineering Loop
           </div>
           <div>
-            Deterministic Node Simulator • Zero Mocking
+            Deterministic Workflow Simulation • Synthetic Dataset
           </div>
         </div>
       </footer>

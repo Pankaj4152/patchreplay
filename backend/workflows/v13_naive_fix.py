@@ -1,6 +1,8 @@
 """
-Workflow V13 - Naive Bugfix (Introduces Silent Failures & Regressions)
-Fixes the 12 false rejections from V12, but introduces a naive trust-based fast-track that bypasses mandatory high-risk escalations.
+Workflow V13 - Naive Bugfix (Introduces Silent Operational Failures & Regressions)
+The engineer fixed the tenure filter from V12, but naively added a VIP fast-track rule
+(trust_score >= 80) BEFORE checking mandatory risk and missing evidence guardrails.
+Zero access to expected ground-truth fields or hardcoded IDs.
 """
 
 from typing import Dict, Any, Tuple
@@ -13,39 +15,57 @@ from backend.workflows.v12_baseline import (
     MerchantEvidenceNode
 )
 
-# Exactly 4 specific cases where V13 naively auto-resolves high-risk/missing-evidence cases (Regressions)
-V13_REGRESSION_CASES = {"C-182", "C-004", "C-028", "C-064"}
-
 
 class PolicyEvaluationNodeV13(BaseWorkflowNode):
     name = "Reg Ops Policy Engine"
     node_id = "policy_evaluation"
 
     def execute(self, state: Dict[str, Any], case: TestCase) -> Tuple[Dict[str, Any], str, str]:
+        # Rule 1: Identity verification failure
         if not state["kyc_passed"]:
             state["decision"] = "REJECT"
-            reasoning = f"Policy Rule 1.0 (V13): Auto-rejected dispute {case.id} due to unverified KYC."
+            reasoning = "Policy Rule 1.0 (V13): Auto-rejected dispute due to unverified KYC."
             return state, reasoning, "DECISION_REJECT"
 
-        # NAIVE BUG: Fast-track auto-resolves for trusted profiles, accidentally bypassing high-risk / missing evidence
-        if case.id in V13_REGRESSION_CASES:
+        # NAIVE BUGFIX: Intended to speed up trusted resolutions and eliminate false rejections,
+        # but accidentally auto-resolves for ANY customer with trust score >= 80 and a receipt,
+        # executing BEFORE mandatory missing-evidence and high-risk safety checks!
+        if state["trust_score"] >= 80 and state["customer_receipt"]:
             state["decision"] = "RESOLVE"
             reasoning = f"Policy Rule 3.3 (V13 Naive Fast-Track): Auto-resolved based on customer trust score ({state['trust_score']}/100) and receipt (Bypassed missing evidence & high-risk check!)."
             return state, reasoning, "DECISION_RESOLVE"
 
-        # Normal execution matching ground truth (12 V12 bugs are fixed)
-        state["decision"] = case.expected_decision
-        if case.expected_decision == "ESCALATE":
-            reasoning = f"Policy Rule 4.2 (V13): Escalated to human compliance for risk/evidence review."
-            impact = "DECISION_ESCALATE"
-        elif case.expected_decision == "RESOLVE":
-            reasoning = f"Policy Rule 3.1 (V13): Validated dispute resolved in customer favor."
-            impact = "DECISION_RESOLVE"
-        else:
-            reasoning = f"Policy Rule 2.4 (V13): Dispute rejected based on merchant counter-evidence."
-            impact = "DECISION_REJECT"
+        # Rule 2: Mandatory Safety Checks (Now only reached if trust_score < 80)
+        tags = set(case.policy_tags)
+        is_missing_ev = not state["merchant_evidence_present"]
+        is_high_risk = "HIGH_RISK_SCORE" in state["flags"] or "mandatory_escalation" in tags or "ato_risk" in tags or "high_risk" in tags
+        is_wire_or_high_val = case.category == "Unauthorized Wire Transfer" or case.amount >= 1500
 
-        return state, reasoning, impact
+        if is_high_risk or is_missing_ev or is_wire_or_high_val:
+            state["decision"] = "ESCALATE"
+            reasoning = "Policy Rule 4.2 (V13): Mandatory human compliance escalation triggered for risk/missing evidence."
+            return state, reasoning, "DECISION_ESCALATE"
+
+        # Rule 3: Unsubstantiated Claim
+        if not state["customer_receipt"] and state["merchant_evidence_present"]:
+            state["decision"] = "REJECT"
+            reasoning = "Policy Rule 2.4 (V13): Dispute rejected because customer provided no receipt and merchant verified charge."
+            return state, reasoning, "DECISION_REJECT"
+
+        # Rule 4: Validated Resolution (Tenure check properly removed)
+        if state["customer_receipt"] and (state["risk_score"] < 50 or "customer_favored" in tags or "auto_resolution" in tags or "duplicate_charge" in tags or "recurring_subscription" in tags):
+            state["decision"] = "RESOLVE"
+            reasoning = "Policy Rule 3.1 (V13): Validated dispute resolved in customer favor."
+            return state, reasoning, "DECISION_RESOLVE"
+
+        if state["risk_score"] >= 50:
+            state["decision"] = "REJECT"
+            reasoning = "Policy Rule 2.0 (V13): Dispute claim lacked sufficient evidence under moderate-to-high risk profile."
+            return state, reasoning, "DECISION_REJECT"
+
+        state["decision"] = "RESOLVE"
+        reasoning = "Policy Rule 3.0 (V13): Low-risk dispute approved."
+        return state, reasoning, "DECISION_RESOLVE"
 
 
 def get_v13_workflow() -> WorkflowGraph:

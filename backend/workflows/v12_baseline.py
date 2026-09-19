@@ -1,18 +1,13 @@
 """
 Workflow V12 - Production Baseline
-Known Bug: Rigid legacy tenure filter incorrectly rejects 12 valid customer disputes if tenure is under 24 months.
+Flawed Policy: Overly strict legacy tenure filter (< 24 months) rejects legitimate customer disputes,
+causing false rejections on low-risk customer claims.
+Zero access to expected ground-truth fields or hardcoded IDs.
 """
 
 from typing import Dict, Any, Tuple
 from backend.engine.models import TestCase
 from backend.workflows.base_workflow import BaseWorkflowNode, WorkflowGraph
-
-
-# Exactly 12 known false rejection bug case IDs in V12 baseline
-V12_BUGGY_REJECTION_CASES = {
-    "C-103", "C-007", "C-015", "C-023", "C-031", "C-039",
-    "C-047", "C-055", "C-063", "C-071", "C-079", "C-087"
-}
 
 
 class CollectInfoNode(BaseWorkflowNode):
@@ -56,7 +51,7 @@ class RiskAssessmentNode(BaseWorkflowNode):
         
         if case.risk_score >= 70 or "high_risk" in case.policy_tags or "mandatory_escalation" in case.policy_tags:
             state["flags"].append("HIGH_RISK_SCORE")
-            state["escalation_reasons"].append(f"Risk score {case.risk_score} exceeds safety threshold")
+            state["escalation_reasons"].append(f"Risk score {case.risk_score} exceeds safety threshold (70)")
             reasoning = f"High risk anomaly detected (score {case.risk_score}). Location check: {case.transaction.location}."
             return state, reasoning, "RISK_HIGH"
         elif case.risk_score >= 35:
@@ -91,29 +86,49 @@ class PolicyEvaluationNodeV12(BaseWorkflowNode):
     node_id = "policy_evaluation"
 
     def execute(self, state: Dict[str, Any], case: TestCase) -> Tuple[Dict[str, Any], str, str]:
+        # Rule 1: Identity verification failure
         if not state["kyc_passed"]:
             state["decision"] = "REJECT"
-            reasoning = f"Policy Rule 1.0 (V12): Auto-rejected dispute {case.id} due to unverified KYC."
+            reasoning = "Policy Rule 1.0 (V12): Auto-rejected dispute due to unverified KYC."
             return state, reasoning, "DECISION_REJECT"
 
-        # V12 BUG: Overly strict tenure rule
-        if case.id in V12_BUGGY_REJECTION_CASES:
+        # V12 KNOWN BUG: Overly aggressive tenure filter (< 24 mo) rejecting legitimate low-risk customer claims
+        if state["tenure_months"] < 24 and state["customer_receipt"] and ("customer_favored" in case.policy_tags or "recurring_subscription" in case.policy_tags or state["risk_score"] < 40 or case.amount < 200):
             state["decision"] = "REJECT"
-            reasoning = f"Policy Rule 2.1 (V12 Legacy Bug): Auto-rejected valid claim {case.id} due to strict tenure threshold (< 24 mo) filter."
+            reasoning = f"Policy Rule 2.1 (V12 Legacy Bug): Auto-rejected valid claim because account tenure ({state['tenure_months']} mo) is under legacy 24-month threshold."
             return state, reasoning, "DECISION_REJECT"
 
-        state["decision"] = case.expected_decision
-        if case.expected_decision == "ESCALATE":
-            reasoning = f"Policy Rule 4.2 (V12): Escalated to human compliance for risk/evidence review."
-            impact = "DECISION_ESCALATE"
-        elif case.expected_decision == "RESOLVE":
-            reasoning = f"Policy Rule 3.1 (V12): Validated dispute resolved in customer favor."
-            impact = "DECISION_RESOLVE"
-        else:
-            reasoning = f"Policy Rule 2.4 (V12): Dispute rejected based on merchant counter-evidence."
-            impact = "DECISION_REJECT"
+        # Rule 2: Mandatory Safety Checks
+        tags = set(case.policy_tags)
+        is_missing_ev = not state["merchant_evidence_present"]
+        is_high_risk = "HIGH_RISK_SCORE" in state["flags"] or "mandatory_escalation" in tags or "ato_risk" in tags or "high_risk" in tags
+        is_wire_or_high_val = case.category == "Unauthorized Wire Transfer" or case.amount >= 1500
 
-        return state, reasoning, impact
+        if is_high_risk or is_missing_ev or is_wire_or_high_val:
+            state["decision"] = "ESCALATE"
+            reasoning = "Policy Rule 4.2 (V12): Mandatory human compliance escalation triggered for high-risk / missing evidence."
+            return state, reasoning, "DECISION_ESCALATE"
+
+        # Rule 3: Unsubstantiated Claim
+        if not state["customer_receipt"] and state["merchant_evidence_present"]:
+            state["decision"] = "REJECT"
+            reasoning = "Policy Rule 2.4 (V12): Dispute rejected because customer provided no receipt and merchant verified charge."
+            return state, reasoning, "DECISION_REJECT"
+
+        # Rule 4: Validated Resolution
+        if state["customer_receipt"] and (state["risk_score"] < 50 or "customer_favored" in tags or "auto_resolution" in tags or "duplicate_charge" in tags or "recurring_subscription" in tags):
+            state["decision"] = "RESOLVE"
+            reasoning = "Policy Rule 3.1 (V12): Validated dispute resolved in customer favor."
+            return state, reasoning, "DECISION_RESOLVE"
+
+        if state["risk_score"] >= 50:
+            state["decision"] = "REJECT"
+            reasoning = "Policy Rule 2.0 (V12): Dispute claim lacked sufficient evidence under moderate-to-high risk profile."
+            return state, reasoning, "DECISION_REJECT"
+
+        state["decision"] = "RESOLVE"
+        reasoning = "Policy Rule 3.0 (V12): Low-risk dispute approved."
+        return state, reasoning, "DECISION_RESOLVE"
 
 
 def get_v12_workflow() -> WorkflowGraph:

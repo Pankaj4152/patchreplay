@@ -45,6 +45,7 @@ class EvidencePackage(BaseModel):
 
 
 class TestCase(BaseModel):
+    __test__ = False  # Suppress pytest collection warning
     id: str
     title: str
     category: str

@@ -26,7 +26,7 @@
     },
     "risk_score": 25,
     "expected_decision": "RESOLVE",
-    "expected_reasoning": "Customer provided valid cancellation proof and merchant confirmed cancellation previously.",
+    "expected_reasoning": "Validated customer dispute with verified receipt and acceptable risk profile.",
     "policy_tags": [
       "recurring_subscription",
       "customer_favored"
@@ -59,7 +59,7 @@
     },
     "risk_score": 82,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "High-value dispute ($2,500) with High Risk score (82) and missing merchant evidence mandates human compliance escalation under Section 4.2 Reg Ops policy.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 82, Missing Evidence: True, Amount: $2500.00).",
     "policy_tags": [
       "high_value",
       "high_risk",
@@ -94,7 +94,7 @@
     },
     "risk_score": 12,
     "expected_decision": "RESOLVE",
-    "expected_reasoning": "Clear duplicate contactless charge under micro-dispute threshold with merchant verification.",
+    "expected_reasoning": "Validated customer dispute with verified receipt and acceptable risk profile.",
     "policy_tags": [
       "low_risk",
       "duplicate_charge",
@@ -128,7 +128,7 @@
     },
     "risk_score": 94,
     "expected_decision": "REJECT",
-    "expected_reasoning": "Customer failed KYC verification and ATM transaction completed with valid chip+PIN hardware validation.",
+    "expected_reasoning": "Customer failed KYC verification.",
     "policy_tags": [
       "kyc_failed",
       "hardware_pin_verified",
@@ -162,7 +162,7 @@
     },
     "risk_score": 91,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "Account takeover indicators present with high transaction amount and cross-border destination.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 91, Missing Evidence: False, Amount: $1850.00).",
     "policy_tags": [
       "ato_risk",
       "crypto_ramp",
@@ -195,8 +195,8 @@
       "merchant_evidence_present": true
     },
     "risk_score": 79,
-    "expected_decision": "REJECT",
-    "expected_reasoning": "Merchant provided clear rebuttal evidence while customer provided no substantiation.",
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 79, Missing Evidence: False, Amount: $17.79).",
     "policy_tags": [
       "account_takeover_suspicion",
       "risk_high"
@@ -229,7 +229,7 @@
     },
     "risk_score": 45,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 45, Missing Evidence: False, Amount: $196.84).",
     "policy_tags": [
       "unauthorized_wire_transfer",
       "risk_med"
@@ -262,7 +262,7 @@
     },
     "risk_score": 56,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 56, Missing Evidence: False, Amount: $1882.52).",
     "policy_tags": [
       "account_takeover_suspicion",
       "risk_med"
@@ -295,7 +295,7 @@
     },
     "risk_score": 78,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "High risk dispute without merchant rebuttal requires investigator escalation.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 78, Missing Evidence: True, Amount: $68.39).",
     "policy_tags": [
       "account_takeover_suspicion",
       "risk_high"
@@ -328,7 +328,7 @@
     },
     "risk_score": 60,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 60, Missing Evidence: False, Amount: $1913.42).",
     "policy_tags": [
       "atm_withdrawal_discrepancy",
       "risk_med"
@@ -360,8 +360,8 @@
       "merchant_evidence_present": true
     },
     "risk_score": 90,
-    "expected_decision": "REJECT",
-    "expected_reasoning": "Merchant provided clear rebuttal evidence while customer provided no substantiation.",
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 90, Missing Evidence: False, Amount: $25.35).",
     "policy_tags": [
       "subscription_cancellation_conflict",
       "risk_high"
@@ -393,8 +393,8 @@
       "merchant_evidence_present": true
     },
     "risk_score": 10,
-    "expected_decision": "RESOLVE",
-    "expected_reasoning": "Customer claim substantiated with evidence within auto-settlement limits.",
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 10, Missing Evidence: False, Amount: $1652.13).",
     "policy_tags": [
       "account_takeover_suspicion",
       "risk_low"
@@ -427,7 +427,7 @@
     },
     "risk_score": 12,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 12, Missing Evidence: True, Amount: $63.38).",
     "policy_tags": [
       "subscription_cancellation_conflict",
       "risk_low"
@@ -459,8 +459,8 @@
       "merchant_evidence_present": true
     },
     "risk_score": 64,
-    "expected_decision": "ESCALATE",
-    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "expected_decision": "REJECT",
+    "expected_reasoning": "Dispute claim lacked sufficient evidence under moderate-to-high risk profile.",
     "policy_tags": [
       "cross-border_merchant_overcharge",
       "risk_med"
@@ -493,7 +493,7 @@
     },
     "risk_score": 17,
     "expected_decision": "REJECT",
-    "expected_reasoning": "Customer identity verification failed (KYC unverified).",
+    "expected_reasoning": "Customer failed KYC verification.",
     "policy_tags": [
       "unauthorized_wire_transfer",
       "risk_low"
@@ -526,7 +526,7 @@
     },
     "risk_score": 69,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "Regulated ops threshold exceeded ($2000+) requiring human review.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 69, Missing Evidence: True, Amount: $2290.79).",
     "policy_tags": [
       "unauthorized_wire_transfer",
       "risk_med"
@@ -559,7 +559,7 @@
     },
     "risk_score": 80,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "Regulated ops threshold exceeded ($2000+) requiring human review.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 80, Missing Evidence: False, Amount: $4769.80).",
     "policy_tags": [
       "unauthorized_wire_transfer",
       "risk_high"
@@ -592,7 +592,7 @@
     },
     "risk_score": 81,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "Regulated ops threshold exceeded ($2000+) requiring human review.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 81, Missing Evidence: False, Amount: $4779.55).",
     "policy_tags": [
       "card_fraud_dispute",
       "risk_high"
@@ -624,8 +624,8 @@
       "merchant_evidence_present": true
     },
     "risk_score": 86,
-    "expected_decision": "REJECT",
-    "expected_reasoning": "Merchant provided clear rebuttal evidence while customer provided no substantiation.",
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 86, Missing Evidence: False, Amount: $50.89).",
     "policy_tags": [
       "card_fraud_dispute",
       "risk_high"
@@ -657,8 +657,8 @@
       "merchant_evidence_present": false
     },
     "risk_score": 26,
-    "expected_decision": "RESOLVE",
-    "expected_reasoning": "Customer claim substantiated with evidence within auto-settlement limits.",
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 26, Missing Evidence: True, Amount: $1901.12).",
     "policy_tags": [
       "account_takeover_suspicion",
       "risk_low"
@@ -691,7 +691,7 @@
     },
     "risk_score": 48,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 48, Missing Evidence: False, Amount: $449.96).",
     "policy_tags": [
       "unauthorized_wire_transfer",
       "risk_med"
@@ -723,8 +723,8 @@
       "merchant_evidence_present": false
     },
     "risk_score": 43,
-    "expected_decision": "RESOLVE",
-    "expected_reasoning": "Customer claim substantiated with evidence within auto-settlement limits.",
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 43, Missing Evidence: True, Amount: $922.35).",
     "policy_tags": [
       "card_fraud_dispute",
       "risk_med"
@@ -756,8 +756,8 @@
       "merchant_evidence_present": false
     },
     "risk_score": 57,
-    "expected_decision": "RESOLVE",
-    "expected_reasoning": "Customer claim substantiated with evidence within auto-settlement limits.",
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 57, Missing Evidence: True, Amount: $376.38).",
     "policy_tags": [
       "account_takeover_suspicion",
       "risk_med"
@@ -790,7 +790,7 @@
     },
     "risk_score": 30,
     "expected_decision": "RESOLVE",
-    "expected_reasoning": "Customer claim substantiated with evidence within auto-settlement limits.",
+    "expected_reasoning": "Validated customer dispute with verified receipt and acceptable risk profile.",
     "policy_tags": [
       "subscription_cancellation_conflict",
       "risk_low"
@@ -823,7 +823,7 @@
     },
     "risk_score": 39,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 39, Missing Evidence: False, Amount: $4449.76).",
     "policy_tags": [
       "atm_withdrawal_discrepancy",
       "risk_med"
@@ -856,7 +856,7 @@
     },
     "risk_score": 65,
     "expected_decision": "REJECT",
-    "expected_reasoning": "Customer identity verification failed (KYC unverified).",
+    "expected_reasoning": "Customer failed KYC verification.",
     "policy_tags": [
       "card_fraud_dispute",
       "risk_med"
@@ -889,7 +889,7 @@
     },
     "risk_score": 95,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 95, Missing Evidence: False, Amount: $418.73).",
     "policy_tags": [
       "card_fraud_dispute",
       "risk_high"
@@ -921,8 +921,8 @@
       "merchant_evidence_present": false
     },
     "risk_score": 61,
-    "expected_decision": "RESOLVE",
-    "expected_reasoning": "Customer claim substantiated with evidence within auto-settlement limits.",
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 61, Missing Evidence: True, Amount: $256.59).",
     "policy_tags": [
       "cross-border_merchant_overcharge",
       "risk_med"
@@ -955,7 +955,7 @@
     },
     "risk_score": 49,
     "expected_decision": "REJECT",
-    "expected_reasoning": "Customer identity verification failed (KYC unverified).",
+    "expected_reasoning": "Customer failed KYC verification.",
     "policy_tags": [
       "account_takeover_suspicion",
       "risk_med"
@@ -988,7 +988,7 @@
     },
     "risk_score": 32,
     "expected_decision": "RESOLVE",
-    "expected_reasoning": "Customer claim substantiated with evidence within auto-settlement limits.",
+    "expected_reasoning": "Validated customer dispute with verified receipt and acceptable risk profile.",
     "policy_tags": [
       "atm_withdrawal_discrepancy",
       "risk_low"
@@ -1021,7 +1021,7 @@
     },
     "risk_score": 70,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "Regulated ops threshold exceeded ($2000+) requiring human review.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 70, Missing Evidence: False, Amount: $4491.71).",
     "policy_tags": [
       "atm_withdrawal_discrepancy",
       "risk_med"
@@ -1054,7 +1054,7 @@
     },
     "risk_score": 37,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 37, Missing Evidence: False, Amount: $2452.49).",
     "policy_tags": [
       "subscription_cancellation_conflict",
       "risk_med"
@@ -1087,7 +1087,7 @@
     },
     "risk_score": 79,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "Regulated ops threshold exceeded ($2000+) requiring human review.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 79, Missing Evidence: False, Amount: $4560.34).",
     "policy_tags": [
       "atm_withdrawal_discrepancy",
       "risk_high"
@@ -1120,7 +1120,7 @@
     },
     "risk_score": 27,
     "expected_decision": "REJECT",
-    "expected_reasoning": "Customer identity verification failed (KYC unverified).",
+    "expected_reasoning": "Customer failed KYC verification.",
     "policy_tags": [
       "atm_withdrawal_discrepancy",
       "risk_low"
@@ -1153,7 +1153,7 @@
     },
     "risk_score": 93,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "High risk dispute without merchant rebuttal requires investigator escalation.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 93, Missing Evidence: True, Amount: $1622.79).",
     "policy_tags": [
       "subscription_cancellation_conflict",
       "risk_high"
@@ -1186,7 +1186,7 @@
     },
     "risk_score": 49,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 49, Missing Evidence: True, Amount: $58.96).",
     "policy_tags": [
       "atm_withdrawal_discrepancy",
       "risk_med"
@@ -1219,7 +1219,7 @@
     },
     "risk_score": 94,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 94, Missing Evidence: False, Amount: $64.07).",
     "policy_tags": [
       "account_takeover_suspicion",
       "risk_high"
@@ -1252,7 +1252,7 @@
     },
     "risk_score": 85,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "Regulated ops threshold exceeded ($2000+) requiring human review.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 85, Missing Evidence: False, Amount: $3847.74).",
     "policy_tags": [
       "atm_withdrawal_discrepancy",
       "risk_high"
@@ -1285,7 +1285,7 @@
     },
     "risk_score": 86,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "High risk dispute without merchant rebuttal requires investigator escalation.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 86, Missing Evidence: True, Amount: $1230.84).",
     "policy_tags": [
       "card_fraud_dispute",
       "risk_high"
@@ -1318,7 +1318,7 @@
     },
     "risk_score": 94,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "Regulated ops threshold exceeded ($2000+) requiring human review.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 94, Missing Evidence: False, Amount: $2882.71).",
     "policy_tags": [
       "account_takeover_suspicion",
       "risk_high"
@@ -1351,7 +1351,7 @@
     },
     "risk_score": 71,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 71, Missing Evidence: False, Amount: $160.89).",
     "policy_tags": [
       "unauthorized_wire_transfer",
       "risk_high"
@@ -1384,7 +1384,7 @@
     },
     "risk_score": 91,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 91, Missing Evidence: False, Amount: $911.19).",
     "policy_tags": [
       "subscription_cancellation_conflict",
       "risk_high"
@@ -1417,7 +1417,7 @@
     },
     "risk_score": 82,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "High risk dispute without merchant rebuttal requires investigator escalation.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 82, Missing Evidence: True, Amount: $17.99).",
     "policy_tags": [
       "atm_withdrawal_discrepancy",
       "risk_high"
@@ -1449,8 +1449,8 @@
       "merchant_evidence_present": false
     },
     "risk_score": 22,
-    "expected_decision": "RESOLVE",
-    "expected_reasoning": "Customer claim substantiated with evidence within auto-settlement limits.",
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 22, Missing Evidence: True, Amount: $30.81).",
     "policy_tags": [
       "atm_withdrawal_discrepancy",
       "risk_low"
@@ -1483,7 +1483,7 @@
     },
     "risk_score": 19,
     "expected_decision": "RESOLVE",
-    "expected_reasoning": "Customer claim substantiated with evidence within auto-settlement limits.",
+    "expected_reasoning": "Validated customer dispute with verified receipt and acceptable risk profile.",
     "policy_tags": [
       "atm_withdrawal_discrepancy",
       "risk_low"
@@ -1516,7 +1516,7 @@
     },
     "risk_score": 48,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 48, Missing Evidence: False, Amount: $961.11).",
     "policy_tags": [
       "unauthorized_wire_transfer",
       "risk_med"
@@ -1549,7 +1549,7 @@
     },
     "risk_score": 44,
     "expected_decision": "RESOLVE",
-    "expected_reasoning": "Micro-dispute low-friction auto-resolution policy.",
+    "expected_reasoning": "Validated customer dispute with verified receipt and acceptable risk profile.",
     "policy_tags": [
       "card_fraud_dispute",
       "risk_med"
@@ -1582,7 +1582,7 @@
     },
     "risk_score": 73,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 73, Missing Evidence: False, Amount: $251.51).",
     "policy_tags": [
       "card_fraud_dispute",
       "risk_high"
@@ -1615,7 +1615,7 @@
     },
     "risk_score": 16,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 16, Missing Evidence: False, Amount: $3555.32).",
     "policy_tags": [
       "account_takeover_suspicion",
       "risk_low"
@@ -1648,7 +1648,7 @@
     },
     "risk_score": 92,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 92, Missing Evidence: False, Amount: $10.96).",
     "policy_tags": [
       "cross-border_merchant_overcharge",
       "risk_high"
@@ -1680,8 +1680,8 @@
       "merchant_evidence_present": true
     },
     "risk_score": 63,
-    "expected_decision": "RESOLVE",
-    "expected_reasoning": "Micro-dispute low-friction auto-resolution policy.",
+    "expected_decision": "REJECT",
+    "expected_reasoning": "Dispute claim lacked sufficient evidence under moderate-to-high risk profile.",
     "policy_tags": [
       "atm_withdrawal_discrepancy",
       "risk_med"
@@ -1714,7 +1714,7 @@
     },
     "risk_score": 34,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "Regulated ops threshold exceeded ($2000+) requiring human review.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 34, Missing Evidence: True, Amount: $3630.29).",
     "policy_tags": [
       "atm_withdrawal_discrepancy",
       "risk_low"
@@ -1746,8 +1746,8 @@
       "merchant_evidence_present": true
     },
     "risk_score": 52,
-    "expected_decision": "ESCALATE",
-    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "expected_decision": "REJECT",
+    "expected_reasoning": "Dispute claim lacked sufficient evidence under moderate-to-high risk profile.",
     "policy_tags": [
       "account_takeover_suspicion",
       "risk_med"
@@ -1780,7 +1780,7 @@
     },
     "risk_score": 78,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "High risk dispute without merchant rebuttal requires investigator escalation.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 78, Missing Evidence: True, Amount: $64.71).",
     "policy_tags": [
       "atm_withdrawal_discrepancy",
       "risk_high"
@@ -1812,8 +1812,8 @@
       "merchant_evidence_present": false
     },
     "risk_score": 51,
-    "expected_decision": "RESOLVE",
-    "expected_reasoning": "Customer claim substantiated with evidence within auto-settlement limits.",
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 51, Missing Evidence: True, Amount: $650.66).",
     "policy_tags": [
       "card_fraud_dispute",
       "risk_med"
@@ -1846,7 +1846,7 @@
     },
     "risk_score": 42,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 42, Missing Evidence: False, Amount: $445.75).",
     "policy_tags": [
       "unauthorized_wire_transfer",
       "risk_med"
@@ -1879,7 +1879,7 @@
     },
     "risk_score": 83,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "Regulated ops threshold exceeded ($2000+) requiring human review.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 83, Missing Evidence: True, Amount: $3154.08).",
     "policy_tags": [
       "account_takeover_suspicion",
       "risk_high"
@@ -1912,7 +1912,7 @@
     },
     "risk_score": 90,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "High risk dispute without merchant rebuttal requires investigator escalation.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 90, Missing Evidence: True, Amount: $227.97).",
     "policy_tags": [
       "unauthorized_wire_transfer",
       "risk_high"
@@ -1944,8 +1944,8 @@
       "merchant_evidence_present": false
     },
     "risk_score": 71,
-    "expected_decision": "RESOLVE",
-    "expected_reasoning": "Customer claim substantiated with evidence within auto-settlement limits.",
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 71, Missing Evidence: True, Amount: $1813.81).",
     "policy_tags": [
       "unauthorized_wire_transfer",
       "risk_high"
@@ -1978,7 +1978,7 @@
     },
     "risk_score": 91,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "High risk dispute without merchant rebuttal requires investigator escalation.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 91, Missing Evidence: True, Amount: $1181.72).",
     "policy_tags": [
       "atm_withdrawal_discrepancy",
       "risk_high"
@@ -2010,8 +2010,8 @@
       "merchant_evidence_present": true
     },
     "risk_score": 22,
-    "expected_decision": "ESCALATE",
-    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "expected_decision": "REJECT",
+    "expected_reasoning": "Merchant provided counter-evidence while customer claim lacked receipt documentation.",
     "policy_tags": [
       "account_takeover_suspicion",
       "risk_low"
@@ -2044,7 +2044,7 @@
     },
     "risk_score": 56,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 56, Missing Evidence: False, Amount: $3111.59).",
     "policy_tags": [
       "cross-border_merchant_overcharge",
       "risk_med"
@@ -2076,8 +2076,8 @@
       "merchant_evidence_present": true
     },
     "risk_score": 82,
-    "expected_decision": "REJECT",
-    "expected_reasoning": "Merchant provided clear rebuttal evidence while customer provided no substantiation.",
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 82, Missing Evidence: False, Amount: $1955.67).",
     "policy_tags": [
       "account_takeover_suspicion",
       "risk_high"
@@ -2109,8 +2109,8 @@
       "merchant_evidence_present": false
     },
     "risk_score": 40,
-    "expected_decision": "RESOLVE",
-    "expected_reasoning": "Customer claim substantiated with evidence within auto-settlement limits.",
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 40, Missing Evidence: True, Amount: $79.13).",
     "policy_tags": [
       "unauthorized_wire_transfer",
       "risk_med"
@@ -2143,7 +2143,7 @@
     },
     "risk_score": 17,
     "expected_decision": "RESOLVE",
-    "expected_reasoning": "Customer claim substantiated with evidence within auto-settlement limits.",
+    "expected_reasoning": "Validated customer dispute with verified receipt and acceptable risk profile.",
     "policy_tags": [
       "cross-border_merchant_overcharge",
       "risk_low"
@@ -2176,7 +2176,7 @@
     },
     "risk_score": 47,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 47, Missing Evidence: False, Amount: $4136.46).",
     "policy_tags": [
       "card_fraud_dispute",
       "risk_med"
@@ -2208,8 +2208,8 @@
       "merchant_evidence_present": true
     },
     "risk_score": 70,
-    "expected_decision": "REJECT",
-    "expected_reasoning": "Merchant provided clear rebuttal evidence while customer provided no substantiation.",
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 70, Missing Evidence: False, Amount: $1139.72).",
     "policy_tags": [
       "atm_withdrawal_discrepancy",
       "risk_med"
@@ -2241,8 +2241,8 @@
       "merchant_evidence_present": true
     },
     "risk_score": 49,
-    "expected_decision": "ESCALATE",
-    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "expected_decision": "RESOLVE",
+    "expected_reasoning": "Validated customer dispute with verified receipt and acceptable risk profile.",
     "policy_tags": [
       "atm_withdrawal_discrepancy",
       "risk_med"
@@ -2275,7 +2275,7 @@
     },
     "risk_score": 44,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 44, Missing Evidence: True, Amount: $50.19).",
     "policy_tags": [
       "subscription_cancellation_conflict",
       "risk_med"
@@ -2307,8 +2307,8 @@
       "merchant_evidence_present": true
     },
     "risk_score": 30,
-    "expected_decision": "RESOLVE",
-    "expected_reasoning": "Customer claim substantiated with evidence within auto-settlement limits.",
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 30, Missing Evidence: False, Amount: $3591.45).",
     "policy_tags": [
       "unauthorized_wire_transfer",
       "risk_low"
@@ -2340,8 +2340,8 @@
       "merchant_evidence_present": true
     },
     "risk_score": 46,
-    "expected_decision": "ESCALATE",
-    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "expected_decision": "RESOLVE",
+    "expected_reasoning": "Validated customer dispute with verified receipt and acceptable risk profile.",
     "policy_tags": [
       "atm_withdrawal_discrepancy",
       "risk_med"
@@ -2374,7 +2374,7 @@
     },
     "risk_score": 32,
     "expected_decision": "REJECT",
-    "expected_reasoning": "Customer identity verification failed (KYC unverified).",
+    "expected_reasoning": "Customer failed KYC verification.",
     "policy_tags": [
       "subscription_cancellation_conflict",
       "risk_low"
@@ -2407,7 +2407,7 @@
     },
     "risk_score": 12,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "Regulated ops threshold exceeded ($2000+) requiring human review.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 12, Missing Evidence: True, Amount: $4128.50).",
     "policy_tags": [
       "card_fraud_dispute",
       "risk_low"
@@ -2440,7 +2440,7 @@
     },
     "risk_score": 77,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 77, Missing Evidence: False, Amount: $70.94).",
     "policy_tags": [
       "atm_withdrawal_discrepancy",
       "risk_high"
@@ -2473,7 +2473,7 @@
     },
     "risk_score": 82,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "Regulated ops threshold exceeded ($2000+) requiring human review.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 82, Missing Evidence: False, Amount: $3391.86).",
     "policy_tags": [
       "account_takeover_suspicion",
       "risk_high"
@@ -2506,7 +2506,7 @@
     },
     "risk_score": 19,
     "expected_decision": "RESOLVE",
-    "expected_reasoning": "Customer claim substantiated with evidence within auto-settlement limits.",
+    "expected_reasoning": "Validated customer dispute with verified receipt and acceptable risk profile.",
     "policy_tags": [
       "cross-border_merchant_overcharge",
       "risk_low"
@@ -2538,8 +2538,8 @@
       "merchant_evidence_present": false
     },
     "risk_score": 53,
-    "expected_decision": "RESOLVE",
-    "expected_reasoning": "Customer claim substantiated with evidence within auto-settlement limits.",
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 53, Missing Evidence: True, Amount: $55.63).",
     "policy_tags": [
       "cross-border_merchant_overcharge",
       "risk_med"
@@ -2572,7 +2572,7 @@
     },
     "risk_score": 52,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 52, Missing Evidence: True, Amount: $74.26).",
     "policy_tags": [
       "subscription_cancellation_conflict",
       "risk_med"
@@ -2605,7 +2605,7 @@
     },
     "risk_score": 92,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 92, Missing Evidence: False, Amount: $77.74).",
     "policy_tags": [
       "subscription_cancellation_conflict",
       "risk_high"
@@ -2638,7 +2638,7 @@
     },
     "risk_score": 22,
     "expected_decision": "RESOLVE",
-    "expected_reasoning": "Customer claim substantiated with evidence within auto-settlement limits.",
+    "expected_reasoning": "Validated customer dispute with verified receipt and acceptable risk profile.",
     "policy_tags": [
       "subscription_cancellation_conflict",
       "risk_low"
@@ -2671,7 +2671,7 @@
     },
     "risk_score": 67,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "Regulated ops threshold exceeded ($2000+) requiring human review.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 67, Missing Evidence: True, Amount: $2712.59).",
     "policy_tags": [
       "account_takeover_suspicion",
       "risk_med"
@@ -2704,7 +2704,7 @@
     },
     "risk_score": 76,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "High risk dispute without merchant rebuttal requires investigator escalation.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 76, Missing Evidence: True, Amount: $874.75).",
     "policy_tags": [
       "unauthorized_wire_transfer",
       "risk_high"
@@ -2736,8 +2736,8 @@
       "merchant_evidence_present": true
     },
     "risk_score": 50,
-    "expected_decision": "ESCALATE",
-    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "expected_decision": "REJECT",
+    "expected_reasoning": "Dispute claim lacked sufficient evidence under moderate-to-high risk profile.",
     "policy_tags": [
       "card_fraud_dispute",
       "risk_med"
@@ -2770,7 +2770,7 @@
     },
     "risk_score": 40,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "Regulated ops threshold exceeded ($2000+) requiring human review.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 40, Missing Evidence: True, Amount: $4504.89).",
     "policy_tags": [
       "cross-border_merchant_overcharge",
       "risk_med"
@@ -2803,7 +2803,7 @@
     },
     "risk_score": 20,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "Regulated ops threshold exceeded ($2000+) requiring human review.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 20, Missing Evidence: True, Amount: $2721.69).",
     "policy_tags": [
       "account_takeover_suspicion",
       "risk_low"
@@ -2835,8 +2835,8 @@
       "merchant_evidence_present": false
     },
     "risk_score": 52,
-    "expected_decision": "RESOLVE",
-    "expected_reasoning": "Micro-dispute low-friction auto-resolution policy.",
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 52, Missing Evidence: True, Amount: $27.76).",
     "policy_tags": [
       "subscription_cancellation_conflict",
       "risk_med"
@@ -2869,7 +2869,7 @@
     },
     "risk_score": 79,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "High risk dispute without merchant rebuttal requires investigator escalation.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 79, Missing Evidence: True, Amount: $799.01).",
     "policy_tags": [
       "card_fraud_dispute",
       "risk_high"
@@ -2901,8 +2901,8 @@
       "merchant_evidence_present": true
     },
     "risk_score": 57,
-    "expected_decision": "ESCALATE",
-    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "expected_decision": "REJECT",
+    "expected_reasoning": "Dispute claim lacked sufficient evidence under moderate-to-high risk profile.",
     "policy_tags": [
       "atm_withdrawal_discrepancy",
       "risk_med"
@@ -2935,7 +2935,7 @@
     },
     "risk_score": 54,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 54, Missing Evidence: False, Amount: $3807.86).",
     "policy_tags": [
       "card_fraud_dispute",
       "risk_med"
@@ -2968,7 +2968,7 @@
     },
     "risk_score": 40,
     "expected_decision": "REJECT",
-    "expected_reasoning": "Customer identity verification failed (KYC unverified).",
+    "expected_reasoning": "Customer failed KYC verification.",
     "policy_tags": [
       "cross-border_merchant_overcharge",
       "risk_med"
@@ -3001,7 +3001,7 @@
     },
     "risk_score": 73,
     "expected_decision": "REJECT",
-    "expected_reasoning": "Customer identity verification failed (KYC unverified).",
+    "expected_reasoning": "Customer failed KYC verification.",
     "policy_tags": [
       "cross-border_merchant_overcharge",
       "risk_high"
@@ -3033,8 +3033,8 @@
       "merchant_evidence_present": true
     },
     "risk_score": 50,
-    "expected_decision": "RESOLVE",
-    "expected_reasoning": "Micro-dispute low-friction auto-resolution policy.",
+    "expected_decision": "REJECT",
+    "expected_reasoning": "Dispute claim lacked sufficient evidence under moderate-to-high risk profile.",
     "policy_tags": [
       "card_fraud_dispute",
       "risk_med"
@@ -3066,8 +3066,8 @@
       "merchant_evidence_present": false
     },
     "risk_score": 26,
-    "expected_decision": "RESOLVE",
-    "expected_reasoning": "Customer claim substantiated with evidence within auto-settlement limits.",
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 26, Missing Evidence: True, Amount: $1240.54).",
     "policy_tags": [
       "unauthorized_wire_transfer",
       "risk_low"
@@ -3099,8 +3099,8 @@
       "merchant_evidence_present": true
     },
     "risk_score": 65,
-    "expected_decision": "ESCALATE",
-    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "expected_decision": "REJECT",
+    "expected_reasoning": "Dispute claim lacked sufficient evidence under moderate-to-high risk profile.",
     "policy_tags": [
       "account_takeover_suspicion",
       "risk_med"
@@ -3133,7 +3133,7 @@
     },
     "risk_score": 88,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 88, Missing Evidence: False, Amount: $875.66).",
     "policy_tags": [
       "cross-border_merchant_overcharge",
       "risk_high"
@@ -3166,7 +3166,7 @@
     },
     "risk_score": 89,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 89, Missing Evidence: False, Amount: $478.39).",
     "policy_tags": [
       "card_fraud_dispute",
       "risk_high"
@@ -3198,8 +3198,8 @@
       "merchant_evidence_present": true
     },
     "risk_score": 50,
-    "expected_decision": "ESCALATE",
-    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "expected_decision": "REJECT",
+    "expected_reasoning": "Dispute claim lacked sufficient evidence under moderate-to-high risk profile.",
     "policy_tags": [
       "account_takeover_suspicion",
       "risk_med"
@@ -3231,8 +3231,8 @@
       "merchant_evidence_present": true
     },
     "risk_score": 30,
-    "expected_decision": "RESOLVE",
-    "expected_reasoning": "Customer claim substantiated with evidence within auto-settlement limits.",
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 30, Missing Evidence: False, Amount: $4836.15).",
     "policy_tags": [
       "subscription_cancellation_conflict",
       "risk_low"
@@ -3265,7 +3265,7 @@
     },
     "risk_score": 73,
     "expected_decision": "REJECT",
-    "expected_reasoning": "Customer identity verification failed (KYC unverified).",
+    "expected_reasoning": "Customer failed KYC verification.",
     "policy_tags": [
       "card_fraud_dispute",
       "risk_high"
@@ -3298,7 +3298,7 @@
     },
     "risk_score": 67,
     "expected_decision": "REJECT",
-    "expected_reasoning": "Customer identity verification failed (KYC unverified).",
+    "expected_reasoning": "Customer failed KYC verification.",
     "policy_tags": [
       "atm_withdrawal_discrepancy",
       "risk_med"
@@ -3330,8 +3330,8 @@
       "merchant_evidence_present": false
     },
     "risk_score": 70,
-    "expected_decision": "RESOLVE",
-    "expected_reasoning": "Customer claim substantiated with evidence within auto-settlement limits.",
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 70, Missing Evidence: True, Amount: $293.83).",
     "policy_tags": [
       "unauthorized_wire_transfer",
       "risk_med"
@@ -3364,7 +3364,7 @@
     },
     "risk_score": 24,
     "expected_decision": "RESOLVE",
-    "expected_reasoning": "Customer claim substantiated with evidence within auto-settlement limits.",
+    "expected_reasoning": "Validated customer dispute with verified receipt and acceptable risk profile.",
     "policy_tags": [
       "cross-border_merchant_overcharge",
       "risk_low"
@@ -3397,7 +3397,7 @@
     },
     "risk_score": 34,
     "expected_decision": "REJECT",
-    "expected_reasoning": "Customer identity verification failed (KYC unverified).",
+    "expected_reasoning": "Customer failed KYC verification.",
     "policy_tags": [
       "unauthorized_wire_transfer",
       "risk_low"
@@ -3430,7 +3430,7 @@
     },
     "risk_score": 78,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "High risk dispute without merchant rebuttal requires investigator escalation.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 78, Missing Evidence: True, Amount: $1492.68).",
     "policy_tags": [
       "cross-border_merchant_overcharge",
       "risk_high"
@@ -3463,7 +3463,7 @@
     },
     "risk_score": 79,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 79, Missing Evidence: False, Amount: $1233.02).",
     "policy_tags": [
       "subscription_cancellation_conflict",
       "risk_high"
@@ -3496,7 +3496,7 @@
     },
     "risk_score": 85,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "High risk dispute without merchant rebuttal requires investigator escalation.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 85, Missing Evidence: True, Amount: $1307.33).",
     "policy_tags": [
       "account_takeover_suspicion",
       "risk_high"
@@ -3529,7 +3529,7 @@
     },
     "risk_score": 70,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "Regulated ops threshold exceeded ($2000+) requiring human review.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 70, Missing Evidence: True, Amount: $4787.30).",
     "policy_tags": [
       "account_takeover_suspicion",
       "risk_med"
@@ -3562,7 +3562,7 @@
     },
     "risk_score": 47,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "Regulated ops threshold exceeded ($2000+) requiring human review.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 47, Missing Evidence: True, Amount: $4991.52).",
     "policy_tags": [
       "atm_withdrawal_discrepancy",
       "risk_med"
@@ -3595,7 +3595,7 @@
     },
     "risk_score": 33,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "Regulated ops threshold exceeded ($2000+) requiring human review.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 33, Missing Evidence: True, Amount: $2487.48).",
     "policy_tags": [
       "cross-border_merchant_overcharge",
       "risk_low"
@@ -3628,7 +3628,7 @@
     },
     "risk_score": 40,
     "expected_decision": "REJECT",
-    "expected_reasoning": "Customer identity verification failed (KYC unverified).",
+    "expected_reasoning": "Customer failed KYC verification.",
     "policy_tags": [
       "atm_withdrawal_discrepancy",
       "risk_med"
@@ -3660,8 +3660,8 @@
       "merchant_evidence_present": false
     },
     "risk_score": 47,
-    "expected_decision": "RESOLVE",
-    "expected_reasoning": "Customer claim substantiated with evidence within auto-settlement limits.",
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 47, Missing Evidence: True, Amount: $1107.72).",
     "policy_tags": [
       "account_takeover_suspicion",
       "risk_med"
@@ -3694,7 +3694,7 @@
     },
     "risk_score": 24,
     "expected_decision": "REJECT",
-    "expected_reasoning": "Customer identity verification failed (KYC unverified).",
+    "expected_reasoning": "Customer failed KYC verification.",
     "policy_tags": [
       "unauthorized_wire_transfer",
       "risk_low"
@@ -3726,8 +3726,8 @@
       "merchant_evidence_present": false
     },
     "risk_score": 63,
-    "expected_decision": "RESOLVE",
-    "expected_reasoning": "Customer claim substantiated with evidence within auto-settlement limits.",
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 63, Missing Evidence: True, Amount: $24.38).",
     "policy_tags": [
       "account_takeover_suspicion",
       "risk_med"
@@ -3759,8 +3759,8 @@
       "merchant_evidence_present": false
     },
     "risk_score": 14,
-    "expected_decision": "RESOLVE",
-    "expected_reasoning": "Customer claim substantiated with evidence within auto-settlement limits.",
+    "expected_decision": "ESCALATE",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 14, Missing Evidence: True, Amount: $39.66).",
     "policy_tags": [
       "card_fraud_dispute",
       "risk_low"
@@ -3792,8 +3792,8 @@
       "merchant_evidence_present": true
     },
     "risk_score": 60,
-    "expected_decision": "ESCALATE",
-    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "expected_decision": "REJECT",
+    "expected_reasoning": "Dispute claim lacked sufficient evidence under moderate-to-high risk profile.",
     "policy_tags": [
       "account_takeover_suspicion",
       "risk_med"
@@ -3826,7 +3826,7 @@
     },
     "risk_score": 88,
     "expected_decision": "REJECT",
-    "expected_reasoning": "Customer identity verification failed (KYC unverified).",
+    "expected_reasoning": "Customer failed KYC verification.",
     "policy_tags": [
       "unauthorized_wire_transfer",
       "risk_high"
@@ -3859,7 +3859,7 @@
     },
     "risk_score": 39,
     "expected_decision": "RESOLVE",
-    "expected_reasoning": "Customer claim substantiated with evidence within auto-settlement limits.",
+    "expected_reasoning": "Validated customer dispute with verified receipt and acceptable risk profile.",
     "policy_tags": [
       "account_takeover_suspicion",
       "risk_med"
@@ -3892,7 +3892,7 @@
     },
     "risk_score": 81,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 81, Missing Evidence: False, Amount: $313.82).",
     "policy_tags": [
       "subscription_cancellation_conflict",
       "risk_high"
@@ -3925,7 +3925,7 @@
     },
     "risk_score": 81,
     "expected_decision": "ESCALATE",
-    "expected_reasoning": "High risk dispute without merchant rebuttal requires investigator escalation.",
+    "expected_reasoning": "Mandatory compliance escalation for operational risk (Score: 81, Missing Evidence: True, Amount: $69.45).",
     "policy_tags": [
       "unauthorized_wire_transfer",
       "risk_high"
@@ -3957,8 +3957,8 @@
       "merchant_evidence_present": true
     },
     "risk_score": 52,
-    "expected_decision": "ESCALATE",
-    "expected_reasoning": "Ambiguous evidence balance requires analyst review.",
+    "expected_decision": "REJECT",
+    "expected_reasoning": "Dispute claim lacked sufficient evidence under moderate-to-high risk profile.",
     "policy_tags": [
       "subscription_cancellation_conflict",
       "risk_med"

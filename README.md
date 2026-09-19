@@ -18,7 +18,7 @@ When an engineer modifies an AI agent workflow to resolve an edge case, they ris
 2. **Replays test suites across workflow versions** (`V12 Baseline` $\rightarrow$ `V13 Naive Bugfix` $\rightarrow$ `V14 Hardened Guardrails`).
 3. **Classifies outcomes** into **Fixed**, **Stable**, **Regressed**, **Still Failing**, and **Critical Silent Failures**.
 4. **Pins the exact node of divergence** via step-by-step side-by-side trace visualizers.
-5. **Provides an interactive Guardrail Sandbox** to evaluate policy tweaks in real time.
+5. **Provides an interactive Guardrail Sandbox** to evaluate policy tweaks in real time across the full dataset.
 
 ---
 
@@ -28,8 +28,8 @@ When an engineer modifies an AI agent workflow to resolve an edge case, they ris
 | :--- | :--- |
 | *"Review agent workflow traces and flag anomalies, bugs, and missing cases"* | Side-by-side **Trace Visualizer** inspecting inputs, LLM/Rule reasoning, decision impacts, and node divergence points. |
 | *"Write simple Python scripts to spot patterns and automate checks"* | Python Core Engine (`backend/engine/comparator.py`) and standalone CLI (`backend/run_replay.py`) performing automated multi-version diffing. |
-| *"Reproduce issues and clearly document what happened"* | **Trace-to-Test Ingestion Pipeline** converting production failure traces into repeatable regression tests. |
-| *"Work with engineering to verify fixes"* | Direct $\text{V12} \rightarrow \text{V14}$ verification proving **12 fixed cases with 0 regressions**. |
+| *"Reproduce issues and clearly document what happened"* | **Trace-to-Test Ingestion Pipeline** converting production failure traces into repeatable regression tests (`POST /api/cases/promote`). |
+| *"Work with engineering to verify fixes"* | Direct $\text{V12} \rightarrow \text{V14}$ verification proving **9 fixed cases with 0 regressions and 100% accuracy**. |
 | *"Critical thinking and pattern matching beyond technical skills"* | Distinction between software errors and **Silent Operational Failures** (e.g. auto-resolving high-risk fraud). |
 
 ---
@@ -38,12 +38,12 @@ When an engineer modifies an AI agent workflow to resolve an edge case, they ris
 
 ```mermaid
 flowchart TD
-    A[Synthetic Golden Suite - 120 Reg Ops Cases] --> B[Workflow Engine]
+    A[Synthetic Golden Suite - 120 Reg Ops Cases] --> B[FastAPI Engine / CLI]
     
-    subgraph Execution Harness
-        B -->|Run Case| V12[Workflow V12 - Production Baseline]
-        B -->|Run Case| V13[Workflow V13 - Naive Bugfix]
-        B -->|Run Case| V14[Workflow V14 - Hardened Guardrails]
+    subgraph Execution Harness (Zero Ground-Truth Leakage)
+        B -->|Execute Input State| V12[Workflow V12 - Production Baseline]
+        B -->|Execute Input State| V13[Workflow V13 - Naive Bugfix]
+        B -->|Execute Input State| V14[Workflow V14 - Hardened Guardrails]
     end
     
     V12 --> T12[V12 Node Traces]
@@ -58,10 +58,10 @@ flowchart TD
         D -->|V1 Correct, V2 Correct| S[STABLE]
         D -->|V1 Correct, V2 Wrong| R[REGRESSION]
         D -->|V1 Wrong, V2 Wrong| SF[STILL FAILING]
-        D -->|200 OK + Wrong Decision| SL[CRITICAL SILENT FAILURE]
+        D -->|200 OK + Wrong Action| SL[CRITICAL SILENT FAILURE]
     end
     
-    F & S & R & SF & SL --> UI[PatchReplay Web Console & CLI Reporter]
+    F & S & R & SF & SL --> UI[React Developer Console & CLI Terminal]
 ```
 
 ---
@@ -79,51 +79,51 @@ Step 2:        Customer KYC Check [PASSED]            Customer KYC Check [PASSED
 Step 3:        Risk Assessment [HIGH RISK]            Risk Assessment [HIGH RISK]
 Step 4:        Merchant Evidence [MISSING]            Merchant Evidence [MISSING]
 Step 5:        Reg Ops Policy Engine                  Reg Ops Policy Engine
-               Decision: ESCALATE (✓ Correct)         Decision: AUTO_RESOLVE (✕ Silent Failure!)
+               Decision: ESCALATE (✓ Correct)         Decision: RESOLVE (✕ Silent Failure!)
                                                               ▲
                                                     [DIVERGENCE DETECTED]
                                         V13 bypassed missing evidence rule for VIPs
 ```
 
-* **The Takeaway:** The engineer who built V13 celebrated fixing 12 cases—unaware that they silently created 4 high-risk regressions. PatchReplay caught this immediately.
+* **The Takeaway:** The engineer who built V13 celebrated fixing 9 customer tenure rejections (raising accuracy from 92.5% to 95.8%)—unaware that they silently created 5 high-risk regressions. PatchReplay caught this divergence immediately.
 
 ---
 
 ## 📊 Evaluation Metrics Summary
 
-| Workflow Comparison | Total Cases | Fixed | Stable | Regressions | Silent Failures | Net Accuracy |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **V12 $\rightarrow$ V13 (Naive Fix)** | 120 | **12** | 104 | **4** | **4** | $90.0\% \rightarrow 96.7\%$ |
-| **V12 $\rightarrow$ V14 (Hardened)** | 120 | **12** | 108 | **0** | **0** | $90.0\% \rightarrow \mathbf{100.0\%}$ |
+| Workflow Comparison | Total Cases | Fixed | Stable | Regressions | Still Failing | Silent Failures | Net Accuracy | Delta |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **V12 $\rightarrow$ V13 (Naive Fix)** | 120 | **9** | **106** | **5** | 0 | **5** | $92.5\% \rightarrow 95.8\%$ | **+3.3%** |
+| **V12 $\rightarrow$ V14 (Hardened)** | 120 | **9** | **111** | **0** | 0 | **0** | $92.5\% \rightarrow \mathbf{100.0\%}$ | **+7.5%** |
 
 ---
 
 ## 🚀 Quickstart & How to Run
 
-### 1. Python Backend & Standalone CLI
+### 1. Python Backend & Dependencies
 ```bash
-# Navigate to repository
-cd patchreplay
+# Install dependencies
+pip install -r requirements.txt
 
-# Run full evaluation suite via CLI
+# Run pytest unit, regression, & invariant suite
+pytest backend/tests/ -v
+
+# Run full evaluation suite via colored CLI
 python backend/run_replay.py --v1 v12 --v2 v13
 
-# Inspect a specific case trace divergence (e.g. C-182)
+# Inspect specific case trace divergence (e.g. C-182)
 python backend/run_replay.py --v1 v12 --v2 v13 --inspect C-182
 
 # Run hardened verification (V12 -> V14)
 python backend/run_replay.py --v1 v12 --v2 v14
-
-# Run pytest unit & regression test suite
-pytest backend/tests/
 ```
 
-### 2. Launch FastAPI Service
+### 2. Launch FastAPI Backend Service
 ```bash
 uvicorn backend.app:app --host 127.0.0.1 --port 8000 --reload
 ```
 
-### 3. Launch Web Application Console
+### 3. Launch React Frontend Console
 ```bash
 cd frontend
 npm install
@@ -137,20 +137,21 @@ Open **`http://localhost:5173`** in your browser.
 
 ```
 patchreplay/
+├── requirements.txt                # Pinned Python dependencies (FastAPI, Pytest, Pydantic, etc.)
 ├── backend/
 │   ├── app.py                      # FastAPI backend service endpoints
-│   ├── dataset.json                # Synthetic Banking Operations Dataset (120 cases)
+│   ├── dataset.json                # Synthetic Regulated Ops Dataset (120 cases)
 │   ├── run_replay.py               # Standalone colored terminal CLI runner
 │   ├── engine/
 │   │   ├── models.py               # Pydantic domain models for traces & metrics
 │   │   └── comparator.py           # Regression classification & divergence algorithm
 │   ├── workflows/
 │   │   ├── base_workflow.py        # Base node graph interface & trace harness
-│   │   ├── v12_baseline.py         # Baseline workflow with known false rejections
+│   │   ├── v12_baseline.py         # Baseline workflow with tenure false rejections
 │   │   ├── v13_naive_fix.py        # Naive bugfix with silent failure regressions
 │   │   └── v14_hardened.py         # Hardened fix with strict safety guardrails
 │   └── tests/
-│       └── test_replay.py          # Pytest regression suite
+│       └── test_replay.py          # Pytest invariant, regression, and API suite
 ├── frontend/
 │   ├── src/
 │   │   ├── App.tsx                 # Main developer console application
@@ -162,9 +163,9 @@ patchreplay/
 │   │   │   ├── PromoteIncidentModal.tsx # Incident ingestion to test suite
 │   │   │   └── GuardrailSandbox.tsx# Interactive live rule simulation playground
 │   │   ├── lib/
-│   │   │   └── replayEngine.ts     # Client-side deterministic graph runtime
+│   │   │   └── api.ts              # Typed client for FastAPI backend
 │   │   └── types.ts                # TypeScript interfaces
-├── ARCHITECTURE.md                 # In-depth architectural & taxonomy design
+├── ARCHITECTURE.md                 # In-depth architectural & failure taxonomy design
 └── DEMO_GUIDE.md                   # 20-second walkthrough script for interviewers
 ```
 

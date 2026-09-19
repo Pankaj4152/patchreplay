@@ -118,18 +118,27 @@ python backend/run_replay.py --v1 v12 --v2 v13 --inspect C-182
 python backend/run_replay.py --v1 v12 --v2 v14
 ```
 
-### 2. Launch FastAPI Backend Service
+### 2. Local All-in-One Service (Single Command)
+You can run both the API and frontend simultaneously in one single FastAPI process:
 ```bash
+# 1. Build frontend once
+cd frontend && npm install && npm run build && cd ..
+
+# 2. Start FastAPI (serves both React UI and REST API on port 8000)
 uvicorn backend.app:app --host 127.0.0.1 --port 8000 --reload
 ```
+Open **`http://localhost:8000`** in your browser.
 
-### 3. Launch React Frontend Console
-```bash
-cd frontend
-npm install
-npm run dev
-```
-Open **`http://localhost:5173`** in your browser.
+### 3. 🌐 1-Click Cloud Deployment (Render / Railway / Single-Port)
+Deploy PatchReplay as a **single unified Web Service**:
+
+* **Render (`render.yaml` included)**:
+  1. Push repository to GitHub.
+  2. Create a **New Web Service** on [Render](https://render.com).
+  3. **Build Command**: `pip install -r requirements.txt && cd frontend && npm install && npm run build && cd ..`
+  4. **Start Command**: `uvicorn backend.app:app --host 0.0.0.0 --port $PORT`
+* **Railway / Heroku (`Procfile` included)**:
+  1. Deploy repo directly; Railway/Heroku will auto-detect `Procfile` and `requirements.txt`.
 
 ---
 

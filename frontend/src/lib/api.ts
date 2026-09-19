@@ -6,7 +6,14 @@
 import type { ReplayResponse, ComparisonResult, TestCase } from '../types';
 import type { SandboxRules } from '../components/GuardrailSandbox';
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+// When served from FastAPI on single-port (Render/production), use relative paths ("").
+// When developing locally on Vite port 5173, point to http://127.0.0.1:8000.
+const API_BASE =
+  import.meta.env.VITE_API_URL !== undefined
+    ? import.meta.env.VITE_API_URL
+    : typeof window !== 'undefined' && window.location.port === '5173'
+    ? 'http://127.0.0.1:8000'
+    : '';
 
 export async function fetchReplay(
   baseline: string = 'v12',

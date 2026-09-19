@@ -11,6 +11,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from typing import Optional, List, Dict, Any, Tuple
 from fastapi import FastAPI, HTTPException, Body
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field, ConfigDict
 
 from backend.engine.models import (
@@ -340,6 +342,25 @@ def promote_trace_to_test(req: PromoteTraceRequest):
     }
 
 
+# ============================================================================
+# Single-Service SPA Static Mount (For Render, Railway, or local all-in-one)
+# ============================================================================
+frontend_dist = Path(__file__).resolve().parent.parent / "frontend" / "dist"
+if frontend_dist.exists():
+    if (frontend_dist / "assets").exists():
+        app.mount("/assets", StaticFiles(directory=str(frontend_dist / "assets")), name="assets")
+
+    @app.get("/{full_path:path}")
+    async def serve_spa(full_path: str):
+        if full_path.startswith("api"):
+            raise HTTPException(status_code=404, detail="API endpoint not found")
+        target_file = frontend_dist / full_path
+        if full_path and target_file.is_file():
+            return FileResponse(target_file)
+        return FileResponse(frontend_dist / "index.html")
+
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("backend.app:app", host="127.0.0.1", port=8000, reload=True)
+

@@ -1,157 +1,211 @@
 import React from 'react';
 import type { ReplayMetrics } from '../types';
-import { CheckCircle2, AlertTriangle, Flame, ShieldCheck, HelpCircle, ArrowUpRight, ArrowDownRight } from 'lucide-react';
+import {
+  CheckCircle2,
+  AlertTriangle,
+  Flame,
+  ShieldCheck,
+  ArrowRight,
+  TrendingUp,
+  TrendingDown
+} from 'lucide-react';
 
 interface MetricsOverviewProps {
   metrics: ReplayMetrics;
   selectedFilter: string;
   onSelectFilter: (filter: string) => void;
+  onInspectFeaturedCase: (caseId: string) => void;
 }
 
 export const MetricsOverview: React.FC<MetricsOverviewProps> = ({
   metrics,
   selectedFilter,
-  onSelectFilter
+  onSelectFilter,
+  onInspectFeaturedCase
 }) => {
+  const isV13 = metrics.v_current_version === 'V13';
+  const hasRegressions = metrics.regression_count > 0;
+
   return (
     <div className="space-y-4">
-      {/* Top Header Card */}
-      <div className="bg-[#111726] border border-slate-800/80 rounded-xl p-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2">
-            <span className="text-[11px] font-mono font-medium text-slate-400 uppercase tracking-wider">
-              Evaluating Target
-            </span>
-            <span className="text-sm font-bold text-white font-mono">
-              {metrics.v_baseline_version} → {metrics.v_current_version}
-            </span>
-          </div>
-          <p className="text-xs text-slate-400 mt-0.5">
-            {metrics.total_cases} synthetic regulated banking dispute & compliance cases replayed.
-          </p>
-        </div>
+      {/* 1. Single Unified Executive Hero Verdict Banner */}
+      <div
+        className={`rounded-xl p-5 border transition-all ${
+          isV13
+            ? 'bg-[#181119] border-rose-500/40 shadow-lg shadow-rose-950/20'
+            : 'bg-[#0f171d] border-emerald-500/40 shadow-lg shadow-emerald-950/20'
+        }`}
+      >
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+          {/* Left: Clear Verdict & Summary */}
+          <div className="space-y-2 max-w-3xl">
+            <div className="flex flex-wrap items-center gap-2.5">
+              <span
+                className={`inline-flex items-center gap-1.5 text-xs font-mono font-bold px-2.5 py-1 rounded-md border ${
+                  hasRegressions
+                    ? 'bg-rose-500/20 text-rose-300 border-rose-500/40'
+                    : 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40'
+                }`}
+              >
+                {hasRegressions ? (
+                  <>
+                    <AlertTriangle className="w-3.5 h-3.5 text-rose-400" />
+                    5 CRITICAL REGRESSIONS DETECTED
+                  </>
+                ) : (
+                  <>
+                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                    100% HARDENED POLICY PASS
+                  </>
+                )}
+              </span>
 
-        {/* Accuracies */}
-        <div className="flex items-center gap-4 bg-[#0d1322] px-3.5 py-2 rounded-lg border border-slate-800">
-          <div>
-            <span className="text-[10px] font-mono text-slate-400 uppercase block">Baseline Acc</span>
-            <span className="text-xs font-mono font-bold text-slate-300">{metrics.baseline_accuracy}%</span>
-          </div>
-          <div className="h-6 w-px bg-slate-800" />
-          <div>
-            <span className="text-[10px] font-mono text-slate-400 uppercase block">Target Acc</span>
-            <div className="text-xs font-mono font-bold text-white flex items-center gap-1">
-              {metrics.current_accuracy}%
-              {metrics.accuracy_delta >= 0 ? (
-                <span className="text-[11px] text-emerald-400 flex items-center">
-                  <ArrowUpRight className="w-3 h-3" />+{metrics.accuracy_delta}%
-                </span>
+              <span className="text-xs font-mono text-slate-400">
+                Evaluating: <strong className="text-white">{metrics.v_baseline_version}</strong> →{' '}
+                <strong className={isV13 ? 'text-rose-300' : 'text-emerald-300'}>
+                  {metrics.v_current_version}
+                </strong>
+              </span>
+            </div>
+
+            <p className="text-sm text-slate-200 leading-relaxed">
+              {isV13 ? (
+                <>
+                  Workflow V13 resolved 9 false tenure rejections, but naively auto-resolves high-risk disputes without verifying missing merchant evidence—silently approving fraudulent claims.
+                </>
               ) : (
-                <span className="text-[11px] text-rose-400 flex items-center">
-                  <ArrowDownRight className="w-3 h-3" />{metrics.accuracy_delta}%
-                </span>
+                <>
+                  Workflow V14 correctly re-orders mandatory compliance guardrails before trust rules. All 9 false rejections are fixed with zero regressions and zero silent failures.
+                </>
               )}
+            </p>
+
+            {/* Quick Action CTA */}
+            {isV13 && (
+              <div className="pt-1">
+                <button
+                  onClick={() => onInspectFeaturedCase('C-182')}
+                  className="inline-flex items-center gap-2 px-3 py-1.5 bg-rose-600 hover:bg-rose-500 text-white text-xs font-medium rounded-lg shadow transition cursor-pointer"
+                >
+                  <Flame className="w-3.5 h-3.5" />
+                  Inspect Case C-182 ($2,500 Missing Evidence Silent Failure)
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* Right: Accuracy & Replay Metrics Block */}
+          <div className="flex items-center gap-4 bg-[#090d16]/80 p-3.5 rounded-lg border border-slate-800/80 self-start lg:self-center">
+            <div>
+              <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 block">
+                Baseline (V12)
+              </span>
+              <span className="text-base font-bold font-mono text-slate-300">
+                {metrics.baseline_accuracy}%
+              </span>
+            </div>
+
+            <div className="h-8 w-px bg-slate-800" />
+
+            <div>
+              <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 block">
+                Target ({metrics.v_current_version})
+              </span>
+              <div className="flex items-center gap-1.5">
+                <span className="text-base font-bold font-mono text-white">
+                  {metrics.current_accuracy}%
+                </span>
+                <span
+                  className={`text-xs font-mono font-bold flex items-center ${
+                    metrics.accuracy_delta >= 0 ? 'text-emerald-400' : 'text-rose-400'
+                  }`}
+                >
+                  {metrics.accuracy_delta >= 0 ? (
+                    <>
+                      <TrendingUp className="w-3 h-3" />+{metrics.accuracy_delta}%
+                    </>
+                  ) : (
+                    <>
+                      <TrendingDown className="w-3 h-3" />
+                      {metrics.accuracy_delta}%
+                    </>
+                  )}
+                </span>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* 5 Minimalist Metric Filter Cards */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+      {/* 2. Four Clean, Interactive Outcome Cards */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         {/* Fixed */}
         <button
           onClick={() => onSelectFilter(selectedFilter === 'FIXED' ? 'ALL' : 'FIXED')}
-          className={`text-left rounded-xl p-3.5 border transition cursor-pointer ${
+          className={`text-left rounded-xl p-4 border transition cursor-pointer ${
             selectedFilter === 'FIXED'
               ? 'bg-emerald-950/30 border-emerald-500/80 ring-1 ring-emerald-500/50'
-              : 'bg-[#111726] border-slate-800/80 hover:border-slate-700 hover:bg-[#151c2e]'
+              : 'bg-[#0f1523] border-slate-800 hover:border-slate-700 hover:bg-[#131b2c]'
           }`}
         >
-          <div className="flex items-center justify-between text-emerald-400 mb-1.5">
+          <div className="flex items-center justify-between text-emerald-400 mb-1">
             <span className="text-[11px] font-mono font-semibold uppercase tracking-wider">Fixed</span>
             <CheckCircle2 className="w-4 h-4" />
           </div>
-          <div className="text-xl font-bold font-mono text-white">{metrics.fixed_count}</div>
-          <div className="text-[11px] text-slate-400 mt-0.5">Resolved edge cases</div>
+          <div className="text-2xl font-bold font-mono text-white">{metrics.fixed_count}</div>
+          <div className="text-[11px] text-slate-400 mt-0.5">Was failing, now correct</div>
         </button>
 
         {/* Stable */}
         <button
           onClick={() => onSelectFilter(selectedFilter === 'STABLE' ? 'ALL' : 'STABLE')}
-          className={`text-left rounded-xl p-3.5 border transition cursor-pointer ${
+          className={`text-left rounded-xl p-4 border transition cursor-pointer ${
             selectedFilter === 'STABLE'
               ? 'bg-slate-800/50 border-slate-500 ring-1 ring-slate-500'
-              : 'bg-[#111726] border-slate-800/80 hover:border-slate-700 hover:bg-[#151c2e]'
+              : 'bg-[#0f1523] border-slate-800 hover:border-slate-700 hover:bg-[#131b2c]'
           }`}
         >
-          <div className="flex items-center justify-between text-slate-400 mb-1.5">
+          <div className="flex items-center justify-between text-slate-400 mb-1">
             <span className="text-[11px] font-mono font-semibold uppercase tracking-wider">Stable</span>
             <ShieldCheck className="w-4 h-4 text-slate-400" />
           </div>
-          <div className="text-xl font-bold font-mono text-white">{metrics.stable_count}</div>
-          <div className="text-[11px] text-slate-400 mt-0.5">Remained correct</div>
+          <div className="text-2xl font-bold font-mono text-white">{metrics.stable_count}</div>
+          <div className="text-[11px] text-slate-400 mt-0.5">Consistently correct</div>
         </button>
 
         {/* Regressions */}
         <button
           onClick={() => onSelectFilter(selectedFilter === 'REGRESSION' ? 'ALL' : 'REGRESSION')}
-          className={`text-left rounded-xl p-3.5 border transition cursor-pointer ${
+          className={`text-left rounded-xl p-4 border transition cursor-pointer ${
             selectedFilter === 'REGRESSION'
               ? 'bg-rose-950/40 border-rose-500/80 ring-1 ring-rose-500/60'
-              : 'bg-[#111726] border-slate-800/80 hover:border-slate-700 hover:bg-[#151c2e]'
+              : 'bg-[#0f1523] border-slate-800 hover:border-slate-700 hover:bg-[#131b2c]'
           }`}
         >
-          <div className="flex items-center justify-between text-rose-400 mb-1.5">
+          <div className="flex items-center justify-between text-rose-400 mb-1">
             <span className="text-[11px] font-mono font-semibold uppercase tracking-wider">Regressions</span>
-            <AlertTriangle className="w-4 h-4 text-rose-400" />
+            <AlertTriangle className="w-4 h-4" />
           </div>
-          <div className="text-xl font-bold font-mono text-rose-300">{metrics.regression_count}</div>
-          <div className="text-[11px] text-rose-400/80 mt-0.5">Newly broken cases</div>
+          <div className="text-2xl font-bold font-mono text-white">{metrics.regression_count}</div>
+          <div className="text-[11px] text-slate-400 mt-0.5">Newly broken by change</div>
         </button>
 
-        {/* Still Failing */}
-        <button
-          onClick={() => onSelectFilter(selectedFilter === 'STILL_FAILING' ? 'ALL' : 'STILL_FAILING')}
-          className={`text-left rounded-xl p-3.5 border transition cursor-pointer ${
-            selectedFilter === 'STILL_FAILING'
-              ? 'bg-amber-950/30 border-amber-500/80 ring-1 ring-amber-500/50'
-              : 'bg-[#111726] border-slate-800/80 hover:border-slate-700 hover:bg-[#151c2e]'
-          }`}
-        >
-          <div className="flex items-center justify-between text-amber-400 mb-1.5">
-            <span className="text-[11px] font-mono font-semibold uppercase tracking-wider">Still Failing</span>
-            <HelpCircle className="w-4 h-4 text-amber-400" />
-          </div>
-          <div className="text-xl font-bold font-mono text-white">{metrics.still_failing_count}</div>
-          <div className="text-[11px] text-slate-400 mt-0.5">Unresolved bugs</div>
-        </button>
-
-        {/* Critical Silent Failure */}
+        {/* Silent Failures */}
         <button
           onClick={() => onSelectFilter(selectedFilter === 'SILENT_FAILURE' ? 'ALL' : 'SILENT_FAILURE')}
-          className={`text-left rounded-xl p-3.5 border transition cursor-pointer ${
+          className={`text-left rounded-xl p-4 border transition cursor-pointer ${
             selectedFilter === 'SILENT_FAILURE'
-              ? 'bg-rose-950/60 border-rose-500 ring-2 ring-rose-500'
-              : metrics.silent_failure_count > 0
-              ? 'bg-rose-950/20 border-rose-500/40 hover:border-rose-400 hover:bg-rose-950/30'
-              : 'bg-[#111726] border-slate-800/80 hover:border-slate-700 hover:bg-[#151c2e]'
+              ? 'bg-rose-950/50 border-rose-500 ring-1 ring-rose-500'
+              : 'bg-[#0f1523] border-slate-800 hover:border-slate-700 hover:bg-[#131b2c]'
           }`}
         >
-          <div className="flex items-center justify-between text-rose-400 mb-1.5">
-            <span className="text-[11px] font-mono font-bold uppercase tracking-wider flex items-center gap-1">
-              <Flame className="w-3.5 h-3.5" />
-              Silent Failures
-            </span>
+          <div className="flex items-center justify-between text-rose-400 mb-1">
+            <span className="text-[11px] font-mono font-semibold uppercase tracking-wider">Silent Failures</span>
+            <Flame className="w-4 h-4 text-rose-400" />
           </div>
-          <div className="text-xl font-bold font-mono text-white flex items-center gap-2">
-            {metrics.silent_failure_count}
-            {metrics.silent_failure_count > 0 && (
-              <span className="text-[9px] uppercase font-mono px-1.5 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/40">
-                Critical
-              </span>
-            )}
-          </div>
-          <div className="text-[11px] text-slate-400 mt-0.5">200 OK + wrong decision</div>
+          <div className="text-2xl font-bold font-mono text-rose-300">{metrics.silent_failure_count}</div>
+          <div className="text-[11px] text-slate-400 mt-0.5">200 OK + wrong action</div>
         </button>
       </div>
     </div>

@@ -7,7 +7,7 @@ import { PromoteIncidentModal } from './components/PromoteIncidentModal';
 import { GuardrailSandbox, type SandboxRules } from './components/GuardrailSandbox';
 import { fetchReplay, evaluateSandboxRules, promoteCase } from './lib/api';
 import type { ReplayResponse, ComparisonResult, TestCase } from './types';
-import { Sparkles, AlertTriangle, ArrowRight, RefreshCw, AlertCircle } from 'lucide-react';
+import { Sparkles, RefreshCw, AlertCircle } from 'lucide-react';
 
 export function App() {
   const [baselineVer, setBaselineVer] = useState('V12');
@@ -35,7 +35,7 @@ export function App() {
     } catch (err: any) {
       console.error('Failed to load replay from backend API:', err);
       setApiError(
-        'FastAPI backend unreachable at http://127.0.0.1:8000. Start the server with: uvicorn backend.app:app --reload'
+        'FastAPI backend unreachable at http://127.0.0.1:8000. Start server with: uvicorn backend.app:app --reload'
       );
     } finally {
       setIsReplaying(false);
@@ -56,7 +56,7 @@ export function App() {
   const handlePromoteCase = async (newCase: TestCase) => {
     try {
       await promoteCase(newCase);
-      showToast(`Case ${newCase.id} promoted to regression suite!`);
+      showToast(`Case ${newCase.id} promoted to golden test suite!`);
       await loadReplay(baselineVer, currentVer);
     } catch (err: any) {
       showToast(`Error promoting case: ${err.message}`);
@@ -76,12 +76,17 @@ export function App() {
     }
   };
 
+  const handleInspectFeaturedCase = (caseId: string) => {
+    const match = replayData?.cases.find(c => c.case_id === caseId);
+    if (match) setSelectedCase(match);
+  };
+
   return (
-    <div className="min-h-screen bg-[#0b0f19] text-slate-100 flex flex-col font-sans">
+    <div className="min-h-screen bg-[#090d16] text-slate-100 flex flex-col font-sans">
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 bg-[#161f33] border border-indigo-500/40 px-3.5 py-2 rounded-lg shadow-xl text-xs font-mono text-indigo-300 flex items-center gap-2 animate-fade-in">
-          <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
+        <div className="fixed bottom-6 right-6 z-50 bg-[#141b2b] border border-indigo-500/40 px-4 py-2.5 rounded-lg shadow-xl text-xs font-mono text-indigo-200 flex items-center gap-2">
+          <Sparkles className="w-4 h-4 text-indigo-400" />
           {toastMessage}
         </div>
       )}
@@ -99,21 +104,8 @@ export function App() {
       />
 
       {/* Main Container */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 py-5 space-y-4 flex-1 w-full">
-        {/* Context Bar */}
-        <div className="flex items-center justify-between text-xs text-slate-400 border-b border-slate-800/80 pb-3">
-          <div className="flex items-center gap-2">
-            <span className="font-semibold text-slate-300">Proof-of-Work:</span>
-            <span>Patched (YC S24) AI Reliability Intern</span>
-            <span>•</span>
-            <span className="font-mono text-slate-400">Regulated Ops Suite (120 Cases)</span>
-          </div>
-          <div className="text-[11px] font-mono text-slate-400 hidden sm:block">
-            Core Loop: Reproduce → Replay → Divergence Diff → Invariant Check
-          </div>
-        </div>
-
-        {/* API Error / Connection Warning */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-8 py-6 space-y-5 flex-1 w-full">
+        {/* API Error Warning */}
         {apiError && (
           <div className="bg-[#1c131d] border border-amber-500/40 rounded-xl p-3.5 flex items-center justify-between gap-3 text-amber-200 text-xs font-mono">
             <div className="flex items-center gap-2">
@@ -129,7 +121,7 @@ export function App() {
           </div>
         )}
 
-        {/* Collapsible Sandbox */}
+        {/* Collapsible Sandbox Drawer */}
         {showSandbox && (
           <GuardrailSandbox
             onTweakRules={handleApplySandboxRules}
@@ -137,39 +129,13 @@ export function App() {
           />
         )}
 
-        {/* 20-Second Featured Silent Failure Alert (If V13 active) */}
-        {baselineVer === 'V12' && currentVer === 'V13' && (
-          <div className="bg-[#1f1017] border border-rose-500/30 rounded-xl p-3.5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-            <div className="flex items-center gap-2.5">
-              <AlertTriangle className="w-4 h-4 text-rose-400 flex-shrink-0" />
-              <div>
-                <span className="text-xs font-mono font-bold text-rose-300 mr-2">
-                  CRITICAL SILENT FAILURE IN C-182:
-                </span>
-                <span className="text-xs text-slate-300">
-                  Workflow V13 auto-resolved a $2,500 dispute with missing merchant evidence due to a naive trust rule override.
-                </span>
-              </div>
-            </div>
-
-            <button
-              onClick={() => {
-                const c182 = replayData?.cases.find(c => c.case_id === 'C-182');
-                if (c182) setSelectedCase(c182);
-              }}
-              className="px-3 py-1 bg-rose-600 hover:bg-rose-500 text-white text-xs font-mono font-medium rounded-lg whitespace-nowrap transition flex items-center gap-1 cursor-pointer"
-            >
-              Inspect Divergence <ArrowRight className="w-3 h-3" />
-            </button>
-          </div>
-        )}
-
-        {/* Overview Stats Cards */}
+        {/* Executive Overview Cards & Verdict Hero */}
         {replayData && (
           <MetricsOverview
             metrics={replayData.metrics}
             selectedFilter={selectedFilter}
             onSelectFilter={setSelectedFilter}
+            onInspectFeaturedCase={handleInspectFeaturedCase}
           />
         )}
 
@@ -201,7 +167,7 @@ export function App() {
       />
 
       {/* Footer */}
-      <footer className="border-t border-slate-800/80 bg-[#0d1322] py-4 px-6 text-xs text-slate-500 font-mono">
+      <footer className="border-t border-slate-800/80 bg-[#0c111c] py-4 px-6 text-xs text-slate-500 font-mono">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
           <div>
             PatchReplay • Built for <strong className="text-slate-400">Patched (YC S24)</strong> AI Reliability Engineering Loop

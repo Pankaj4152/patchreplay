@@ -45,7 +45,7 @@ Each node produces an atomic trace:
 
 To identify the earliest point of deviation between two workflow versions $A$ and $B$:
 
-$$\text{Divergence}(T_A, T_B) = \min \left\{ i \;\middle|\; \text{Impact}(T_{A, i}) \neq \text{Impact}(T_{B, i}) \lor \Delta \text{State}(T_{A, i}, T_{B, i}) \neq \emptyset \right\}$$
+$$\text{Divergence}(T_A, T_B) = \min \{ i \mid \text{Impact}(T_{A, i}) \neq \text{Impact}(T_{B, i}) \lor \Delta \text{State}(T_{A, i}, T_{B, i}) \neq \emptyset \}$$
 
 1. **Step-by-Step Traversal**: The comparator iterates sequentially through node indices $i = 1 \dots N$.
 2. **Impact Comparison**: Compares `decision_impact` flags (e.g. `RISK_HIGH` vs `RISK_LOW`, `DECISION_ESCALATE` vs `DECISION_RESOLVE`).

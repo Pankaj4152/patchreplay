@@ -1,6 +1,6 @@
 # PatchReplay ⚡
 ### AI Workflow Regression & Reliability Lab
-> **Proof-of-Work Project for AI Reliability Intern at [Patched](https://www.workatastartup.com/companies/patched) (YC S24)**  
+> **Proof-of-Work Project for AI Reliability Intern at [Patched](https://patched.codes/) (YC S24)**  
 > *"Replay historical cases against a changed AI workflow to determine what was fixed, what still fails, what newly broke, and where the behavior changed."*
 
 ---

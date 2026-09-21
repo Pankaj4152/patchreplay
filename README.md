@@ -40,7 +40,7 @@ When an engineer modifies an AI agent workflow to resolve an edge case, they ris
 flowchart TD
     A[Synthetic Golden Suite - 120 Reg Ops Cases] --> B[FastAPI Engine / CLI]
     
-    subgraph Execution Harness (Zero Ground-Truth Leakage)
+    subgraph Harness["Execution Harness (Zero Ground-Truth Leakage)"]
         B -->|Execute Input State| V12[Workflow V12 - Production Baseline]
         B -->|Execute Input State| V13[Workflow V13 - Naive Bugfix]
         B -->|Execute Input State| V14[Workflow V14 - Hardened Guardrails]
@@ -52,7 +52,7 @@ flowchart TD
     
     T12 & T13 & T14 --> C[PatchReplay Divergence Analyzer]
     
-    subgraph Reliability Evaluation
+    subgraph Evaluation["Reliability Evaluation"]
         C --> D{Outcome Classifier}
         D -->|V1 Wrong, V2 Correct| F[FIXED]
         D -->|V1 Correct, V2 Correct| S[STABLE]
